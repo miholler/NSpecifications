@@ -1,45 +1,45 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using DDD.Data;
+﻿//using System;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using Moq;
+//using DDD.Data;
 
-namespace DDD.Tests
-{
-    [TestClass]
-    public class RepositoryTests
-    {
-        [TestMethod]
-        public void TestMethod1()
-        {
-            // Arrange
+//namespace DDD.Tests
+//{
+//    [TestClass]
+//    public class RepositoryTests
+//    {
+//        [TestMethod]
+//        public void TestMethod1()
+//        {
+//            // Arrange
 
-            var rep = new Mock<CarRepository>().Object;
+//            var rep = new Mock<CarRepository>().Object;
             
-            rep.GetAll();
+//            rep.GetAll();
             
-            // Act
+//            // Act
 
-            // Assert
+//            // Assert
 
-        }
+//        }
 
-        class Car : Entity<int>
-        {
-            public Car(int id)
-            {
-                this.Id = id;
-            }
-            public int Id { get; private set; }
+//        class Car : Entity<int>
+//        {
+//            public Car(int id)
+//            {
+//                this.Id = id;
+//            }
+//            public int Id { get; private set; }
 
-            public override int Identity
-            {
-                get { return Id; }
-            }
-        }
+//            public override int Identity
+//            {
+//                get { return Id; }
+//            }
+//        }
 
-        class CarRepository : GenericRepository<Car, int>
-        {
+//        class CarRepository : GenericRepository<Car, int>
+//        {
 
-        }
-    }
-}
+//        }
+//    }
+//}

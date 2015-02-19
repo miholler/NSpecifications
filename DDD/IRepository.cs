@@ -6,6 +6,10 @@ using System.Text;
 namespace DDD
 {
 
+    public interface IRepository
+    {
+
+    }
     public interface IRepository<TEntity>
     {
 

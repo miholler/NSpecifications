@@ -6,20 +6,18 @@ using System.Threading.Tasks;
 
 namespace DDD
 {
-
     /// <summary>
-    /// An entity, as explained in Eric Evans' book.
+    /// An entity is defined by it's identity, not by reference nor by it's other attributes.
     /// </summary>
-    public interface IEntity<TEntity>
+    /// <typeparam name="TIdentity">The type of the identity.</typeparam>
+    public interface IEntity<TIdentity> where TIdentity : IComparable
     {
         /// <summary>
-        /// Compares this entity with another entity of the same type.
+        /// Gets the identity.
         /// </summary>
-        /// <param name="other">The other entity.</param>
-        /// <returns>true if the identities are the same, regardles of other attributes.</returns>
-        /// <remarks>Entities compare by identity, not by attributes.</remarks>
-        bool SameIdentityAs(TEntity other);
-        /// <remarks>Entities compare by identity, not by attributes.</remarks>
-
+        /// <value>
+        /// The identity.
+        /// </value>
+        TIdentity Identity { get; }
     }
 }

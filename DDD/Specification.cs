@@ -6,15 +6,7 @@ using System.Text;
 namespace DDD
 {
 
-    public static class Specification
-    {
-        public static Specification<TEntity> Create<TEntity>(Func<TEntity, bool> expression)
-        {
-            return new GenericSpecification<TEntity>(expression);
-        }
-    }
-
-    public abstract class Specification<TEntity> : ISpecification<TEntity>
+    public abstract class Specification<TEntity> : ISpecify<TEntity>
     {
         public abstract bool IsSatisfiedBy(TEntity entity);
 
@@ -35,27 +27,12 @@ namespace DDD
 
     }
 
-    internal class GenericSpecification<TEntity> : Specification<TEntity>
-    {
-        Func<TEntity, bool> _expression;
-
-        public GenericSpecification(Func<TEntity, bool> expression)
-        {
-            _expression = expression;
-        }
-
-        public override bool IsSatisfiedBy(TEntity entity)
-        {
-            return _expression(entity);
-        }
-    }
-
     internal class AndSpecification<TEntity> : Specification<TEntity>
     {
-        protected ISpecification<TEntity> Spec1 { get; private set; }
-        protected ISpecification<TEntity> Spec2 { get; private set; }
+        protected ISpecify<TEntity> Spec1 { get; private set; }
+        protected ISpecify<TEntity> Spec2 { get; private set; }
 
-        internal AndSpecification(ISpecification<TEntity> spec1, ISpecification<TEntity> spec2)
+        internal AndSpecification(ISpecify<TEntity> spec1, ISpecify<TEntity> spec2)
         {
             if (spec1 == null)
                 throw new ArgumentNullException("spec1");
@@ -75,10 +52,10 @@ namespace DDD
 
     internal class OrSpecification<TEntity> : Specification<TEntity>
     {
-        protected ISpecification<TEntity> Spec1 { get; private set; }
-        protected ISpecification<TEntity> Spec2 { get; private set; }
+        protected ISpecify<TEntity> Spec1 { get; private set; }
+        protected ISpecify<TEntity> Spec2 { get; private set; }
 
-        internal OrSpecification(ISpecification<TEntity> spec1, ISpecification<TEntity> spec2)
+        internal OrSpecification(ISpecify<TEntity> spec1, ISpecify<TEntity> spec2)
         {
             if (spec1 == null)
                 throw new ArgumentNullException("spec1");
@@ -98,9 +75,9 @@ namespace DDD
 
     internal class NotSpecification<TEntity> : Specification<TEntity>
     {
-        protected ISpecification<TEntity> Wrapped { get; private set; }
+        protected ISpecify<TEntity> Wrapped { get; private set; }
 
-        internal NotSpecification(ISpecification<TEntity> spec)
+        internal NotSpecification(ISpecify<TEntity> spec)
         {
             if (spec == null)
             {

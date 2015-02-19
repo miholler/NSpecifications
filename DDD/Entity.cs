@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace DDD
 {
-    public abstract class Entity<TIdentity> : IEntity<Entity<TIdentity>>
+    public abstract class Entity<TIdentity> 
     {
         public abstract TIdentity Identity { get; }
-
-        public bool SameIdentityAs(Entity<TIdentity> other)
-        {
-            return other != null && Equals(this.Identity, other.Identity);
-        }
 
         /// <summary>
         /// Two entities are equal if they reference the same memory address or
@@ -23,16 +18,15 @@ namespace DDD
         /// <param name="other">The other <see cref="System.Object" /> to compare with this instance.</param>
         public override bool Equals(object other)
         {
-            if (ReferenceEquals(this, other))
-                return true; 
-            if (other == null || other.GetType() == this.GetType())
-                return false;
-            return this.SameIdentityAs((Entity<TIdentity>)other);
+            var otherEntity = other as Entity<TIdentity>;
+            return otherEntity != null
+                && (!otherEntity.GetType().IsAssignableFrom(this.GetType())
+                    || !this.GetType().IsAssignableFrom(otherEntity.GetType()))
+                && this.Identity.Equals(otherEntity.Identity);
         }
 
         /// <summary>
-        /// Two entities are equal if they reference the same memory address or
-        /// if they are of the same type and have an identity with the same value.
+        /// Two entities are equal if they are of the same type and have an identity with the same value.
         /// </summary>
         public static bool operator ==(Entity<TIdentity> entityOne, Entity<TIdentity> entityTwo)
         {

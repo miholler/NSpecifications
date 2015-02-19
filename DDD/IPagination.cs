@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace DDD
-{
-    public interface IMinimalPagination : IPageRequest
-    {
-        IPageRequest First();
+//namespace DDD
+//{
+//    public interface IMinimalPagination : IPageRequest
+//    {
+//        IPageRequest First();
 
-        IPageRequest Next();
+//        IPageRequest Next();
 
-        IPageRequest Previous();
+//        IPageRequest Previous();
 
-        IPageRequest Last();
+//        IPageRequest Last();
 
-        bool IsFirstPage();
+//        bool IsFirstPage();
 
-        bool IsLastPage();
-    }
+//        bool IsLastPage();
+//    }
 
-    public interface IPagination : IMinimalPagination
-    {
-        long PageCount { get; }
+//    public interface IPagination : IMinimalPagination
+//    {
+//        long PageCount { get; }
 
-        long TotalItems { get; }
-    }
-}
+//        long TotalItems { get; }
+//    }
+//}
