@@ -14,3 +14,4 @@ The Specification pattern is one of the most flexible and usefull patterns but h
 
 References:
 - http://martinfowler.com/apsupp/spec.pdf
+- 
