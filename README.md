@@ -1,13 +1,17 @@
 NSpecifications
 ====
 
-NSpecifications is an easy-to-use library that provides a good implementation of the specification pattern grounded on  Domain-Driven Design.
-Specification pattern can be consitently applyed in order to accomplish 3 different goals:
-- Validate an object by checking if it matches a set of rules
-- Filter a collection of objects in-memomry or in persisted in a database
-- Help in the creation of objects by describing what an object might do, without explaining the details of how the object does it, but in such a way that a candidate object might be built to fulfill the requirements.
+NSpecifications is an easy-to-use library that provides a great way to take advantage from the Specification Pattern in .Net grounded on the principles of the  Domain-Driven Design.
 
-The Specification pattern is one of the most flexible and usefull patterns but have been neglected a lot due to some big challenges related to it's understanding and the skills set needed to implement it. I'll provide some examples for these 3 scenarios and show how this library really manages handles them with elegance.
+This is what you can do with NSpecifications:
+1 - Filter a collection of objects in-memomry and from databases;
+2 - Validate an object by checking if it matches a set of rules;
+3 - Used by a factory to know how to create a candidate object built to fulfill a set of requirements.
+
+You will understand that the Specification pattern is a very flexible and usefull pattern, that has been underestimated because a full implementation of this concept with object is cumbersome. I'll show you how you can get all these benefits using a library that handles Specifications with elegance.
+
+Specifications are as decribed by Eric Evans as separate, combinable, rule objects, based on the concept of predicates but more specialized. "A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."
+
 
 
 
