@@ -1,7 +1,7 @@
 NSpecifications
 ====
 
-NSpecifications is an easy-to-use library, grounded on the principles of the  Domain-Driven Design, that provides a great way to take advantage from the Specification Pattern in .Net.
+NSpecifications is an easy-to-use library, grounded on the principles of the  Domain-Driven Design. It provides a great way to take advantage of the Specification Pattern in .Net.
 
 This is what you can do with NSpecifications:
 
