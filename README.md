@@ -9,7 +9,7 @@ This is what you can do with NSpecifications:
  2. **To filter an in-memomry collection of objects or query a DB;**
  3. **Used by a factory to know how to create a candidate object built to fulfil a set of requirements.**
 
-You will understand that the **Specification pattern is a very flexible and useful pattern**, that has been underestimated because a full implementation of this concept in OOP is cumbersome. Your code will have **less redundancy** and **your repositories will be much more readable when you start using meaningful specifications instead of composing complex predicates**. I'll show you how to finally get all these benefits using a library that handles Specifications with elegance.
+You will understand that the **Specification pattern is a very flexible and useful pattern**, that has been underestimated because a full implementation of this concept in OOP used to be cumbersome. Your code will have **less redundancy** and **your repositories will be much more readable when you start using meaningful specifications instead of composing complex predicates**. I'll show you how to finally get all these benefits using a library that handles Specifications with elegance.
 
 Specifications are as described by Eric Evans as separate, combinable, rule objects, based on the concept of predicates but more specialized. **"A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."**
 
