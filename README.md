@@ -77,7 +77,7 @@ First I'd have to find a place to put my specifications:
  - It could be in a static method inside the `User` entity. I would call it like this `User.LockedOut`. This is my favourite because  specifications are tightly coupled to entities. 
  - The only thing I'd like to note here is that hosting specifications in static members do not present any problem for Unit Testing and I've never seen any specification that needed to be mocked.
 
-Let's blend the specifications into the class.
+Let's blend the specifications into the User class.
 
     public class User 
     {
@@ -94,15 +94,19 @@ Let's blend the specifications into the class.
 		public static readonly Specification<User> All = Specification.ForAll<User>();  
     }
 
-While in the first member `LockedOut` specification is only instantiated once (it's a readonly static field), for the second member `NamedLike` the specification have to be instantiated for every given text parameter (it's a static factory method). That's OK and that's just the way that specifications are meant to work.
+While in the first member `LockedOut` specification is only instantiated once (it's a readonly static field), for the second member `NamedLike` the specification have to be instantiated for every given text parameter (it's a static factory method). That's Ok and that's just the way that specifications are meant to work.
 
 When I need to call my domain and execute the query I do it like this:
 
-    var specification = User.All();
+    var specification = User.All;
     if (string.IsNullOrEmpty(searchText))
 	    specification = specification & User.NamedLike(searchText);
-	if (isLocked != null)
-	    specification = specification & User.LockedOut.Value
+	if (isLockedOut != null) {
+	    if (isLockedOut.Value)
+		    specification = specification & User.LockedOut
+		else
+			specification = specification & !User.LockedOut 
+	}
 	var repository = new UserRepository();
     var users = repository.Find(specification);
 
