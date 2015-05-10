@@ -1,23 +1,23 @@
 NSpecifications
 ====
 
-NSpecifications is an easy-to-use library that provides a great way to take advantage from the Specification Pattern in .Net grounded on the principles of the  Domain-Driven Design.
+NSpecifications is an easy-to-use library, grounded on the principles of the  Domain-Driven Design, that provides a great way to take advantage from the Specification Pattern in .Net.
 
 This is what you can do with NSpecifications:
 
- 1. To validate an object to see if it fulfils a set of rules or is ready for some purpose;
- 2. To filter an in-memomry collection of objects or query a DB;
- 3. Used by a factory to know how to create a candidate object built to fulfil a set of requirements.
+ 1. **To validate an object to see if it fulfils a set of rules or is ready for some purpose;**
+ 2. **To filter an in-memomry collection of objects or query a DB;**
+ 3. **Used by a factory to know how to create a candidate object built to fulfil a set of requirements.**
 
-You will understand that the Specification pattern is a very flexible and useful pattern, that has been underestimated because a full implementation of this concept with object is cumbersome. I'll show you how you can get all these benefits using a library that handles Specifications with elegance.
+You will understand that the **Specification pattern is a very flexible and useful pattern**, that has been underestimated because a full implementation of this concept in OOP is cumbersome. Your code will have **less redundancy** and **your repositories will be much more readable when you start using meaningful specifications instead of composing complex predicates**. I'll show you how to finally get all these benefits using a library that handles Specifications with elegance.
 
-Specifications are as described by Eric Evans as separate, combinable, rule objects, based on the concept of predicates but more specialized. "A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."
+Specifications are as described by Eric Evans as separate, combinable, rule objects, based on the concept of predicates but more specialized. **"A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."**
 
 ISpecification(T)
 --------------
 The most simple Specification is a business specification that can only be used for in-memory queries. 
 
-    public class BoringBookSpec : ISpecification<Book> {
+    public class BoringBookSpecification : ISpecification<Book> {
 	    public IsSatisfiedBy(Book book)
 	    {
 		    return book.Rating <= 3.5 && book.Pages > 450
@@ -26,24 +26,24 @@ The most simple Specification is a business specification that can only be used 
 
 Now you can use your specification like this:
 
-    var isBoring = new BoringBookSpec().IsSatisfiedBy(book);
+    var isBoring = new BoringBookSpecification().IsSatisfiedBy(book);
 
 Or like this:
 
-    var boringBookSpec = new BoringBookSpec();
+    var boringBookSpecification = new BoringBookSpecification();
     var boringBooks = allBooks.Where(boringBookSpec.IsSatisfiedBy);
 
-Because of the usage of extension methods Specifications can also be combined if they are of the same generic argument type:
+ISpecifications can also be combined if they are of the same generic argument type:
 
-    var boringBookSpec = lowRatedBookSpec.And(tooBigBookSpec);
+    var boringBookSpecification = lowRatedBookSpecification.And(bigBookSpecification);
 
 This way of using Specifications has some cons:
 
- - very verbose, every new specification is defined in a class
- - it can't be converted to queries in order to retrieve data from a DB
- - *and* and *or* operators are implemented as methods and that's not the most natural way for composing predicates 
+ - **very verbose**, every new specification is defined in a class
+ - it **can't be converted to queries** in order to retrieve data from a DB
+ - *and*, *or* and *not* operators are implemented as methods and that's **not the most natural way for composing predicates** 
 
-Let's now see another much more intuitive way to create and manage Specifications.
+Let's see now a more intuitive way to create and manage Specifications.
 
 ## Specification.For(T) ##
 
