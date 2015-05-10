@@ -47,8 +47,9 @@ Let's see now a more intuitive way to create and manage Specifications.
 
 ## Specification.For(T) ##
 
-Specification is an *abstract* class, therefore it can't be directly instantiated. The Specification class expands the features of the ISpecification(T) and provides a static factory method that releases you from the burden of having to create an implementation of Specification, but you can still use it as a base class and implement your own Specification. These are the pros of Specification class:
+Specification is an *abstract* class, therefore it can't be directly instantiated. The Specification(T) class expands the features of the ISpecification(T) and provides a static factory method that releases you from the burden of having to create an implementation of Specification, but if you want you can still use it as a base class and implement your own Specification. These are the pros of Specification class:
 
+ - only one line needed to define a new specification
  - because it's a class (and not just an interface) we can now use real operators for making composition;
  - it uses Linq Expressions therefore it can be easily converted into IQueryable(T), suitable for querying DBs. 
 
@@ -56,13 +57,14 @@ Example:
 
     var greatWhiskey = Specification.For<Drink>(drink => drink is Whiskey && drink.ManufacturedDate >= 11.yearsAgo);
     var fresh = Specification.For<Drink>(drink => drink.Contains<Ice>());
-    var myFavouriteDrink = greatWhiskey & fresh;
+    var myFavouriteDrink = repository.Get(greatWhiskey & fresh);
     
 Let me dig into the details:
 
  - Following the example from Eric Evans book I usually name my  specifications as objects rather then predicates. This means that I could name it like this `greatWhiskeySpecification` or `greatWhiskey` for a shortcut but not `isGreatWhiskey`. My aim is to clearly state that specifications are a class of it's own, more specialised then predicates and should not be confused. 
  - As you may have noticed now I didn't need to create a new class for every specification.
  - I can now compose specifications using friendly operators: `!` (not), `&` (and), `|` (or). (Please do not confuse these operators with the binary operators).
+ - I'm passing my specifications as a parameter to the Get method of the repository that knows how to use it to query the DB.
 
 ## Use Case ##
 
@@ -92,7 +94,7 @@ Let's blend the specifications into the class.
 		public static readonly Specification<User> All = Specification.ForAll<User>();  
     }
 
-While in the first member `Locked` specification is only instantiated once (it's a readonly static field), for the second member `NamedLike` the specification have to be instantiated for every given text parameter (it's a static factory method). That's OK and that's just the way that specifications are meant to work.
+While in the first member `LockedOut` specification is only instantiated once (it's a readonly static field), for the second member `NamedLike` the specification have to be instantiated for every given text parameter (it's a static factory method). That's OK and that's just the way that specifications are meant to work.
 
 When I need to call my domain and execute the query I do it like this:
 
