@@ -7,8 +7,8 @@
     <ProjectGuid>{C92887E9-2D8E-4116-A336-16B04DCBD98B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DDD</RootNamespace>
-    <AssemblyName>DDD</AssemblyName>
+    <RootNamespace>NSpecifications</RootNamespace>
+    <AssemblyName>NSpecifications</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,19 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\PaginationPage.cs" />
-    <Compile Include="Data\IRepositoryRequestOptions.cs" />
-    <Compile Include="GenericSpefication.cs" />
-    <Compile Include="IPagination.cs" />
-    <Compile Include="Page.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="IEntity.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="ISpecify.cs" />
-    <Compile Include="Data\Repository.cs" />
-    <Compile Include="Specification.cs" />
+    <Compile Include="AndSpecification.cs" />
+    <Compile Include="GenericSpecification.cs" />
+    <Compile Include="ISpecification.cs" />
+    <Compile Include="ISpecificationExtensions.cs" />
+    <Compile Include="NotSpecification.cs" />
+    <Compile Include="OrSpecification.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IValueObject.cs" />
+    <Compile Include="Specification.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,8 +6,8 @@
     <ProjectGuid>{6173776F-EF9B-412D-B0A4-6D9586276BFA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NDDD.Tests</RootNamespace>
-    <AssemblyName>NDDD.Tests</AssemblyName>
+    <RootNamespace>NSpecifications.Tests</RootNamespace>
+    <AssemblyName>NSpecifications.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -59,19 +59,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Mocks\Address.cs" />
-    <Compile Include="Mocks\Customer.cs" />
-    <Compile Include="Data\Ado.Net\UnitTest1.cs" />
-    <Compile Include="Mocks\Email.cs" />
-    <Compile Include="Mocks\Phone.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SpecificationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -81,18 +74,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DDD\DDD.csproj">
-      <Project>{c92887e9-2d8e-4116-a336-16b04dcbd98b}</Project>
-      <Name>DDD</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Data\StoreDb.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
