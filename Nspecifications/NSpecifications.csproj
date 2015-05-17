@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="AndISpecification.cs" />
     <Compile Include="ISpecificationExtensions.cs" />
-    <Compile Include="OrSpecification.cs" />
+    <Compile Include="OrISpecification.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Specification.cs" />
     <Compile Include="ISpecification.cs" />
