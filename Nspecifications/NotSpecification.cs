@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace NSpecifications
 {
-    internal class NotISpecification<T> : INotSpecification<T>
+    internal class NotSpecification<T> : INotSpecification<T>
     {
         public ISpecification<T> Inner { get; private set; }
 
-        internal NotISpecification(ISpecification<T> inner)
+        internal NotSpecification(ISpecification<T> inner)
         {
             if (inner == null)
                 throw new ArgumentNullException("spec");

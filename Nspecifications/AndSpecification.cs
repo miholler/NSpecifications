@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace NSpecifications
 {
-    internal class AndISpecification<T> : IAndSpecification<T>
+    internal class AndSpecification<T> : IAndSpecification<T>
     {
         public ISpecification<T> Spec1 { get; private set; }
 
         public ISpecification<T> Spec2 { get; private set; }
 
-        internal AndISpecification(ISpecification<T> spec1, ISpecification<T> spec2)
+        internal AndSpecification(ISpecification<T> spec1, ISpecification<T> spec2)
         {
             if (spec1 == null)
                 throw new ArgumentNullException("spec1");

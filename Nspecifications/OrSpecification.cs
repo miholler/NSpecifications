@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace NSpecifications
 {
-    internal class OrISpecification<TEntity> : IOrSpecification<TEntity>
+    internal class OrSpecification<TEntity> : IOrSpecification<TEntity>
     {
         public ISpecification<TEntity> Spec1 { get; private set; }
 
         public ISpecification<TEntity> Spec2 { get; private set; }
 
-        internal OrISpecification(ISpecification<TEntity> spec1, ISpecification<TEntity> spec2)
+        internal OrSpecification(ISpecification<TEntity> spec1, ISpecification<TEntity> spec2)
         {
             if (spec1 == null)
                 throw new ArgumentNullException("spec1");

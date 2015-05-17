@@ -40,13 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AndISpecification.cs" />
+    <Compile Include="AndSpecification.cs" />
     <Compile Include="ISpecificationExtensions.cs" />
-    <Compile Include="OrISpecification.cs" />
+    <Compile Include="OrSpecification.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Specification.cs" />
     <Compile Include="ISpecification.cs" />
-    <Compile Include="NotISpecification.cs" />
+    <Compile Include="NotSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ASpecification.cs" />
   </ItemGroup>
