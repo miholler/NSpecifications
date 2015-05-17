@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace NSpecifications
 {
-    internal class AndSpecification<TEntity> : Specification<TEntity>
+    internal class OrISpecification<TEntity> : IOrSpecification<TEntity>
     {
-        protected Specification<TEntity> Spec1 { get; private set; }
+        public ISpecification<TEntity> Spec1 { get; private set; }
 
-        protected Specification<TEntity> Spec2 { get; private set; }
+        public ISpecification<TEntity> Spec2 { get; private set; }
 
-        internal AndSpecification(Specification<TEntity> spec1, Specification<TEntity> spec2)
+        internal OrISpecification(ISpecification<TEntity> spec1, ISpecification<TEntity> spec2)
         {
             if (spec1 == null)
                 throw new ArgumentNullException("spec1");
@@ -27,12 +27,12 @@ namespace NSpecifications
 
         public override Expression<Func<TEntity, bool>> Expression
         {
-            get { return Spec1.Expression.And(Spec2.Expression); }
+            get { return Spec1.Expression.Or(Spec2.Expression); }
         }
 
-        public override string ToString()
+        public new bool IsSatisfiedBy(TEntity candidate)
         {
-            return "({" + Spec1.ToString() + "} And {" + Spec2.ToString() + "})";
+            return Spec1.IsSatisfiedBy(candidate) || Spec2.IsSatisfiedBy(candidate);
         }
     }
 }
