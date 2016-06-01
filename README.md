@@ -18,11 +18,11 @@ Specification pattern will allow you to:
 	 - Filter in-memory list: `list.Where(cheapPlacesToEat & open)`
  - Use it **in place of lambda expressions** that work with the `IQueryable<T>` interface
  - Encapsulate **predicates that can be reused over and over again** (a predicate is just like a query but only for a specific entity),
- - **Compose** predicates **just like if they were boolean expressions**  (&, |, !, ==, !=)
- - Create bigger predicates from the composition of smaller predicates
- - Combine a predicate with a boolean expression.
+ - **Compose** specifications **just like if they were boolean expressions**  (&, |, !, ==, !=)
+ - Create bigger specifications from the composition of smaller specifications
+ - Combine a specifications with a boolean expression.
    
-Example combining predicate with a boolean expression:
+Example combining specifications with a boolean expression:
 
     // If isCheap is not set it will simply return all places
     // If isCheap is true it will return only Cheap places
@@ -77,7 +77,7 @@ Let's see now a more intuitive way to create and manage Specifications.
 
 `ISpecification<T>` is now extended by the `Specification<T>` *abstract* class. This abstract class enables a set of new features such as: 
 
- - real operators (&, |, !, ==, !=, &=, |=)
+ - real operators (&, |, !, ==, !=)
  - implicit operators that make any Specification to be interchangeable with `Expression<Func<T, bool>>` and `Func<T, bool>` 
 
 `Specification<T>` is an *abstract* class therefore it can't be directly instantiated. We now have a factory called `Spec` that free us completely from the need to create a new implementation for each single Specification. It instantiates an internal generic implementation that can be used for all specs. (And if a generic implementation is not good enough, we can always fallback on making our own custom implementation of `Specification<T>`) 
@@ -140,9 +140,9 @@ When I need to execute the query I do it like this:
     public User[] Find(string searchText = null, bool? isLockedOut = null) {
     	var spec = User.All;
     	if (string.IsNullOrEmpty(searchText))
-    		spec &= User.NamedLike(searchText);
+    		spec = spec & User.NamedLike(searchText);
     	if (isLockedOut != null)
-    		spec &= isLockedOut == User.LockedOut;
+    		spec = spec & isLockedOut == User.LockedOut;
     	var repository = new UserRepository();
     	var users = repository.Find(spec);
     }
