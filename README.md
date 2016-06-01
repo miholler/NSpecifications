@@ -11,7 +11,7 @@ This is what you can do with Specifications:
 
 Although **Specification pattern is very flexible and useful**, it's been underestimated due to the lack of awareness about it, and it's also been often avoided due of the pains of implementing it in OOP languages that don't support lambda expressions, fortunately this is no longer the case with C#. 
 
-Specification patter will allow you to:
+Specification pattern will allow you to:
 
  - Use the same exact **same code for querying a database or an in-memory collection of objects**: 
 	 - Query a database: `repository.Find(cheapPlacesToEat & open)`
