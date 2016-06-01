@@ -44,11 +44,12 @@
     <Compile Include="ISpecificationExtensions.cs" />
     <Compile Include="OrSpecification.cs" />
     <Compile Include="PredicateBuilder.cs" />
-    <Compile Include="Specification.cs" />
+    <Compile Include="GenericSpecification.cs" />
     <Compile Include="ISpecification.cs" />
     <Compile Include="NotSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ASpecification.cs" />
+    <Compile Include="Spec.cs" />
+    <Compile Include="Specification.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -25,7 +25,7 @@ namespace NSpecifications
             Spec2 = spec2;
         }
 
-        public override Expression<Func<TEntity, bool>> Expression
+        public Expression<Func<TEntity, bool>> Expression
         {
             get { return Spec1.Expression.Or(Spec2.Expression); }
         }

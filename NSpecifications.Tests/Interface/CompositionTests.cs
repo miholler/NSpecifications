@@ -21,8 +21,8 @@ namespace NSpecifications.Tests.Interface
             // Arrange
             Drink coldWhiskey = Drink.ColdWhiskey();
             Drink appleJuice = Drink.AppleJuice();
-            ISpecification<Drink> whiskeySpec = new Specification<Drink>(d => d.Name.ToLower() == "whiskey");
-            ISpecification<Drink> coldSpec = new Specification<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
+            ISpecification<Drink> whiskeySpec = Spec.For<Drink>(d => d.Name.ToLower() == "whiskey");
+            ISpecification<Drink> coldSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
 
             // Act
             var coldWhiskeySpec = whiskeySpec.And(coldSpec);
@@ -39,9 +39,9 @@ namespace NSpecifications.Tests.Interface
             Drink blackberryJuice = Drink.BlackberryJuice();
             Drink appleJuice = Drink.AppleJuice();
             Drink orangeJuice = Drink.OrangeJuice();
-            ISpecification<Drink> juiceSpec = new Specification<Drink>(d => d.With.Any(w => w.ToLower().Contains("juice")));
-            ISpecification<Drink> appleSpec = new Specification<Drink>(d => d.With.Any(w => w.ToLower().Contains("apple")));
-            ISpecification<Drink> orangeSpec = new Specification<Drink>(d => d.With.Any(w => w.ToLower().Contains("orange")));
+            ISpecification<Drink> juiceSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower().Contains("juice")));
+            ISpecification<Drink> appleSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower().Contains("apple")));
+            ISpecification<Drink> orangeSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower().Contains("orange")));
 
             // Act
             var appleOrOrangeJuiceSpec = juiceSpec.And(appleSpec.Or(orangeSpec));
@@ -58,8 +58,8 @@ namespace NSpecifications.Tests.Interface
             // Arrange
             Drink coldWhiskey = Drink.ColdWhiskey();
             Drink appleJuice = Drink.AppleJuice();
-            ISpecification<Drink> whiskeySpec = new Specification<Drink>(d => d.Name.ToLower() == "whiskey");
-            ISpecification<Drink> coldSpec = new Specification<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
+            ISpecification<Drink> whiskeySpec = Spec.For<Drink>(d => d.Name.ToLower() == "whiskey");
+            ISpecification<Drink> coldSpec = Spec.For<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
 
             // Act
             var coldWhiskeySpec = whiskeySpec.And(coldSpec);
