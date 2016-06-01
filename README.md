@@ -31,7 +31,7 @@ Example combining predicate with a boolean expression:
         // AllPlaces and Cheap are specifications
         var spec = AllPlaces;
         if (isCheap != null)
-	        spec += isCheap == Cheap;
+	        spec &= isCheap == Cheap;
         repository.Find(spec):
     }
 
@@ -117,20 +117,20 @@ Let's blend the specifications into the User class.
 
     public class User 
     {
-	    public string Name { get; }
-	    public bool IsLockedOut { get; }
-	    
-	    // Spec for LockedOut
-	    public static readonly Specification<User> LockedOut = Spec.For<User>(user => user.IsLockedOut);  
-	    
-	    // Spec for NamedLike
-	    public static Specification<User> NamedLike(string text) 
-	    {
-		    return Spec.For<User>(user => name.Contains(text));
-	    }
-		
-		// Spec for all Users
-		public static readonly Specification<User> All = Spec.ForAll<User>();  
+    	public string Name { get; }
+    	public bool IsLockedOut { get; }
+    	
+    	// Spec for LockedOut
+    	public static readonly Specification<User> LockedOut = Spec.For<User>(user => user.IsLockedOut);  
+    	
+    	// Spec for NamedLike
+    	public static Specification<User> NamedLike(string text) 
+    	{
+    		return Spec.For<User>(user => name.Contains(text));
+    	}
+    	
+    	// Spec for all Users
+    	public static readonly Specification<User> All = Spec.ForAll<User>();  
     }
 
 While in the first member `LockedOut` is instantiated once (it's a readonly static field), the second member `NamedLike` need to instantiated for every given text parameter (it's a static factory method). That's Ok and that's just the way that specifications are meant to work when they need to incorporate parameters.
@@ -138,13 +138,13 @@ While in the first member `LockedOut` is instantiated once (it's a readonly stat
 When I need to execute the query I do it like this:
 
     public User[] Find(string searchText = null, bool? isLockedOut = null) {
-	    var spec = User.All;
-	    if (string.IsNullOrEmpty(searchText))
-		    spec += User.NamedLike(searchText);
-		if (isLockedOut != null)
-			spec += isLockedOut == User.LockedOut;
-		var repository = new UserRepository();
-	    var users = repository.Find(spec);
+    	var spec = User.All;
+    	if (string.IsNullOrEmpty(searchText))
+    		spec &= User.NamedLike(searchText);
+    	if (isLockedOut != null)
+    		spec &= isLockedOut == User.LockedOut;
+    	var repository = new UserRepository();
+    	var users = repository.Find(spec);
     }
 
 
