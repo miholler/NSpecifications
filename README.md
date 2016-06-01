@@ -28,10 +28,10 @@ Example combining predicate with a boolean expression:
     // If isCheap is true it will return only Cheap places
     // If isCheap is false it will return all places that are not Cheap
     public Places[] FindPlaces(bool? isCheap = null) {
-        // AllPlaces and Cheap are specifications
-        var spec = AllPlaces;
+        // All and Cheap are specifications
+        var spec = All;
         if (isCheap != null)
-	        spec &= isCheap == Cheap;
+	        spec = spec & (isCheap == Cheap);
         repository.Find(spec):
     }
 
