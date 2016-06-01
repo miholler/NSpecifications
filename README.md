@@ -35,7 +35,7 @@ Example combining predicate with a boolean expression:
         repository.Find(spec):
     }
 
-It can also helps because you can:
+It can also be useful if you want to:
  - Use *ReSharper* for easily tracing **all existing queries** in the source code 
  - Write more readable, manageable and elegant code.
 
