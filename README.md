@@ -5,8 +5,8 @@ NSpecifications is an easy-to-use library, grounded on the principles of the  Do
 
 This is what you can do with Specifications:
 
- 1. **To validate an object to see if it fulfils a set of rules or is ready for some purpose;**
- 2. **To filter an in-memory collection of objects or query a DB;**
+ 1. **Validate an object to see if it fulfils a set of rules or is ready for some purpose;**
+ 2. **Filter an in-memory collection of objects or query a DB with the same code;**
  3. **Use it on a factory for specifying some rules that need to be fulfilled wen building a new object.**
 
 Although **Specification pattern is very flexible and useful**, it's been underestimated due to the lack of awareness about it, and it's also been often avoided due of the pains of implementing it in OOP languages that don't support lambda expressions, fortunately this is no longer the case with C#. 
