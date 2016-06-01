@@ -107,8 +107,8 @@ Let's say that I need to search for users by name (if specified) and by the lock
 
 First I'd have to find a meaningful place to put my specifications: 
 
- - It could be in a statics class called `Specifications` or `Specs` for short. I could invoke it like this: `Specs.LockedOutUser`.   
- - Or it could be in static classes, one per Entity type `UserSpecs`. Ex: `UserSpecs.LockedOut` .
+ - It could be in a static class called `Specifications` or `Specs` for short. I could invoke it like this: `Specs.LockedOutUser`.   
+ - Or it could be in a static classe per Entity type like (`UserSpecs`, `UserGroupSpecs`, ...). Ex: `UserSpecs.LockedOut` .
  - It could be in a static member inside the `User` entity. Ex: `User.LockedOut`. This is my favourite, because specifications are tightly coupled to entities. 
 
 The only thing I'd like to note here is that hosting specifications in static members do not present any problem for Unit Testing. Specifications have no need need to be mocked.
@@ -126,7 +126,7 @@ Let's blend the specifications into the User class.
 	    // Spec for NamedLike
 	    public static Specification<User> NamedLike(string text) 
 	    {
-		    return Specific.For<User>(user => name.Contains(text));
+		    return Spec.For<User>(user => name.Contains(text));
 	    }
 		
 		// Spec for all Users
