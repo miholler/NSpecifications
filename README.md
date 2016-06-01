@@ -3,7 +3,7 @@ NSpecifications
 
 NSpecifications is an easy-to-use library, grounded on the principles of the  Domain-Driven Design. It provides a great way to take advantage of the Specification Pattern on .Net.
 
-This is what you can do with NSpecifications:
+This is what you can do with Specifications:
 
  1. **To validate an object to see if it fulfils a set of rules or is ready for some purpose;**
  2. **To filter an in-memory collection of objects or query a DB;**
