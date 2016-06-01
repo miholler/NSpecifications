@@ -96,7 +96,7 @@ Example:
     
 Let me dig into the details:
 
- - Following the example from Eric Evans book I usually name my  specifications as objects rather then predicates. This means that I could name it  `greatWhiskeySpec` or `greatWhiskey` for a shortcut but not `isGreatWhiskey`. My aim is to clearly state that specifications are a class of it's own, more specialised then predicates and should not be confused. 
+ - Following the example from Eric Evans book I usually name my  specifications as objects rather then predicates. This means that I could name it  `greatWhiskeySpec` or `greatWhiskey` for short but not `isGreatWhiskey`. My aim is to clearly state that specifications are a class of it's own, more specialised then predicates and should not be confused. 
  - As you may have noticed by now this is much less verbose.
  - I can now compose specifications using friendly operators: `!` (not), `&` (and), `|` (or), == (equal). (Please do not confuse these operators with the binary operators).
  - I'm passing my specifications directly as a parameter to the Find method of the repository that expects a Linq Expression, but it receives a specification instead and it is converted to Expression automatically.
