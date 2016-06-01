@@ -7,7 +7,7 @@ This is what you can do with Specifications:
 
  1. **Validate an object to see if it fulfils a set of rules or is ready for some purpose;**
  2. **Filter an in-memory collection of objects or query a DB with the same code;**
- 3. **Use it on a factory for specifying some properties that the news instance must fulfill.**
+ 3. **Use it on a factory for specifying some rules or properties that the new instance must fulfill.**
 
 Although **Specification pattern is very flexible and useful**, it's been underestimated due to the lack of awareness about it, and it's also been often avoided due of the pains of implementing it in OOP languages that don't support lambda expressions, fortunately this is no longer the case with C#. 
 
