@@ -90,8 +90,8 @@ Let's see now a more intuitive way to create and manage Specifications.
 
 Example:
 
-    var greatWhiskey = Spec.For<Drink>(drink => drink is Whiskey && drink.ManufacturedDate >= 11.yearsAgo);
-    var fresh = Spec.For<Drink>(drink => drink.Contains<Ice>());
+    var greatWhiskey = Spec.For<Drink>(drink => drink.Type == "Whiskey" && drink.Age >= 11);
+    var fresh = Spec.For<Drink>(drink => drink.Extras.Contains("Ice"));
     var myFavouriteDrink = repository.Find(greatWhiskey & fresh);
     
 Let me dig into the details:
