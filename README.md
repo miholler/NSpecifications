@@ -142,7 +142,7 @@ When I need to execute the query I do it like this:
     	if (string.IsNullOrEmpty(searchText))
     		spec = spec & User.NamedLike(searchText);
     	if (isLockedOut != null)
-    		spec = spec & isLockedOut == User.LockedOut;
+    		spec = spec & (isLockedOut == User.LockedOut);
     	var repository = new UserRepository();
     	var users = repository.Find(spec);
     }
