@@ -69,6 +69,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Abstract\CompositionTests.cs" />
     <Compile Include="Entities\Drink.cs" />
     <Compile Include="Interface\CompositionTests.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -86,9 +87,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Nspecifications\NSpecifications.csproj">
       <Project>{c92887e9-2d8e-4116-a336-16b04dcbd98b}</Project>
