@@ -23,18 +23,18 @@ Specification pattern will allow you to:
  - Combine a specifications with a boolean expression.
    
 Example combining specifications with a boolean expression:
-
-    // If isCheap is not set it will simply return all places
-    // If isCheap is true it will return only Cheap places
-    // If isCheap is false it will return all places that are not Cheap
-    public Places[] FindPlaces(bool? isCheap = null) {
-        // All and Cheap are specifications
-        var spec = All;
-        if (isCheap != null)
-	        spec = spec & (isCheap == Cheap);
-        repository.Find(spec):
-    }
-
+```csharp
+// If isCheap is not set it will simply return all places
+// If isCheap is true it will return only Cheap places
+// If isCheap is false it will return all places that are not Cheap
+public Places[] FindPlaces(bool? isCheap = null) {
+    // All and Cheap are specifications
+    var spec = All;
+    if (isCheap != null)
+        spec = spec & (isCheap == Cheap);
+    repository.Find(spec):
+}
+```
 Specifications can also be useful if you want to:
  - Use *ReSharper* or reflection for easily tracing **all existing queries** in the source code 
  - Write more readable, manageable and elegant code.
