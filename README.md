@@ -44,27 +44,27 @@ Specifications are described by Eric Evans as separate, combinable, rule objects
 The Old Way: ISpecification(T)
 --------------
 The most basic form of Specification used to be implemented via a simple interface, the probem was that they could only be used for in-memory queries. 
-
-    public class BoringBookSpec : ISpecification<Book> {
-	    public IsSatisfiedBy(Book book)
-	    {
-		    return book.Rating < 3 && book.Pages > 450;
-	    }
+```csharp
+public class BoringBookSpec : ISpecification<Book> {
+    public IsSatisfiedBy(Book book)
+    {
+        return book.Rating < 3 && book.Pages > 450;
     }
-
+}
+```
 And then we could use it like this:
-
-    var isBoring = new BoringBookSpec().IsSatisfiedBy(book);
-
+```csharp
+var isBoring = new BoringBookSpec().IsSatisfiedBy(book);
+```
 Or like this:
-
-    var boringBookSpec = new BoringBookSpec();
-    var boringBooks = allBooks.Where(boringBookSpec.IsSatisfiedBy);
-
+```csharp
+var boringBookSpec = new BoringBookSpec();
+var boringBooks = allBooks.Where(boringBookSpec.IsSatisfiedBy);
+```
 `ISpecification<T>` could also be composed:
-
-    var boringBookSpec = lowRatedBookSpec.And(bigBookSpec);
-
+```csharp
+var boringBookSpec = lowRatedBookSpec.And(bigBookSpec);
+```
 This way of using Specifications had some cons:
 
  - it was **very verbose**, because every new specification had to be defined in a new class
@@ -89,11 +89,11 @@ Let's see now a more intuitive way to create and manage Specifications.
  - it stores a Linq Expression in the created instance, therefore it can be easily converted and used in any IQueryable(T), suitable for querying DBs. 
 
 Example:
-
-    var greatWhiskey = Spec.For<Drink>(drink => drink.Type == "Whiskey" && drink.Age >= 11);
-    var fresh = Spec.For<Drink>(drink => drink.Extras.Contains("Ice"));
-    var myFavouriteDrink = repository.Find(greatWhiskey & fresh);
-    
+```csharp
+var greatWhiskey = Spec.For<Drink>(drink => drink.Type == "Whiskey" && drink.Age >= 11);
+var fresh = Spec.For<Drink>(drink => drink.Extras.Contains("Ice"));
+var myFavouriteDrink = repository.Find(greatWhiskey & fresh);
+```    
 Let me dig into the details:
 
  - Following the example from Eric Evans book I usually name my  specifications as objects rather than predicates. This means that I could name it  `greatWhiskeySpec` or `greatWhiskey` for short but not `isGreatWhiskey`. My aim is to clearly state that specifications are a class of its own, more specialised then predicates and should not be confused. 
@@ -114,39 +114,39 @@ First I'd have to find a meaningful place to put my specifications:
 The only thing I'd like to note here is that hosting specifications in static members do not present any problem for Unit Testing. Specifications have no need to be mocked for unit tests.
 
 Let's blend the specifications into the User class.
-
-    public class User 
+```csharp
+public class User 
+{
+    public string Name { get; }
+    public bool IsLockedOut { get; }
+	
+    // Spec for LockedOut
+    public static readonly Specification<User> LockedOut = Spec.For<User>(user => user.IsLockedOut);  
+    	
+    // Spec for NamedLike
+    public static Specification<User> NamedLike(string text) 
     {
-    	public string Name { get; }
-    	public bool IsLockedOut { get; }
-    	
-    	// Spec for LockedOut
-    	public static readonly Specification<User> LockedOut = Spec.For<User>(user => user.IsLockedOut);  
-    	
-    	// Spec for NamedLike
-    	public static Specification<User> NamedLike(string text) 
-    	{
-    		return Spec.For<User>(user => name.Contains(text));
-    	}
-    	
-    	// Spec for all Users
-    	public static readonly Specification<User> All = Spec.ForAll<User>();  
+    	return Spec.For<User>(user => name.Contains(text));
     }
-
+    
+    // Spec for all Users
+    public static readonly Specification<User> All = Spec.ForAll<User>();  
+}
+```
 While in the first member `LockedOut` is instantiated once (it's a readonly static field), the second member `NamedLike` need to be instantiated for every given text parameter (it's a static factory method). That's Ok and that's just the way that specifications are meant to work when they need to receive parameters.
 
 When I need to execute the query I do it like this:
-
-    public User[] Find(string searchText = null, bool? isLockedOut = null) {
-    	var spec = User.All;
-    	if (string.IsNullOrEmpty(searchText))
-    		spec = spec & User.NamedLike(searchText);
-    	if (isLockedOut != null)
-    		spec = spec & (isLockedOut == User.LockedOut);
-    	var repository = new UserRepository();
-    	var users = repository.Find(spec);
-    }
-
+```csharp
+public User[] Find(string searchText = null, bool? isLockedOut = null) {
+    var spec = User.All;
+    if (string.IsNullOrEmpty(searchText))
+    	spec = spec & User.NamedLike(searchText);
+    if (isLockedOut != null)
+    	spec = spec & (isLockedOut == User.LockedOut);
+    var repository = new UserRepository();
+    var users = repository.Find(spec);
+}
+```
 
 
 
