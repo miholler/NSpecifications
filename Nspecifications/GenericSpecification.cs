@@ -11,13 +11,13 @@ namespace NSpecifications
     /// this implementation might fail because the IsSatisfiedBy is compiled and cached on it's first 
     /// usage.</remarks>
     /// <example><code>var blackSpec = new <see cref="GenericSpecification{T}"/>(c => c.Name.ToLower() == "black");></code></example>
-    internal class GenericSpecification<T> : Specification<T>
+    internal class GenericSpecification<T> : Spec<T>
     {
         readonly Expression<Func<T, bool>> _expression;
 
-        internal static readonly Specification<T> All = new GenericSpecification<T>(x => true);
+        internal static readonly Spec<T> All = new GenericSpecification<T>(x => true);
 
-        internal static readonly Specification<T> None = new GenericSpecification<T>(x => false);
+        internal static readonly Spec<T> None = new GenericSpecification<T>(x => false);
 
         /// <summary>
         /// Caches the compiled Expression so that it doesn't have to compile everytime IsSatisfiedBy is
@@ -34,7 +34,6 @@ namespace NSpecifications
         {
             get { return _expression; }
         }
-
 
         public override bool IsSatisfiedBy(T candidate)
         {

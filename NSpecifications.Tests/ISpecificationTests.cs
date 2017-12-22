@@ -1,31 +1,24 @@
-﻿using NSpecifications.Tests.Entities;
-using NSpecifications;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FluentAssertions;
+using NSpecifications.Tests.Entities;
+using NUnit.Framework;
 
-namespace NSpecifications.Tests.Abstract
+namespace NSpecifications.Tests
 {
     [TestFixture]
-    public class CompositionTests
+    public class ISpecificationTests
     {
-
-
         [Test]
         public void WhiskeyAndCold()
         {
             // Arrange
             Drink coldWhiskey = Drink.ColdWhiskey();
             Drink appleJuice = Drink.AppleJuice();
-            Specification<Drink> whiskeySpec = Spec.For<Drink>(d => d.Name.ToLower() == "whiskey");
-            Specification<Drink> coldSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
+            ISpecification<Drink> whiskeySpec = Spec.Of<Drink>(d => d.Name.ToLower() == "whiskey");
+            ISpecification<Drink> coldSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
 
             // Act
-            var coldWhiskeySpec = whiskeySpec & coldSpec;
+            var coldWhiskeySpec = whiskeySpec.And(coldSpec);
 
             // Assert
             coldWhiskeySpec.IsSatisfiedBy(coldWhiskey).Should().BeTrue();
@@ -39,12 +32,12 @@ namespace NSpecifications.Tests.Abstract
             Drink blackberryJuice = Drink.BlackberryJuice();
             Drink appleJuice = Drink.AppleJuice();
             Drink orangeJuice = Drink.OrangeJuice();
-            Specification<Drink> juiceSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower().Contains("juice")));
-            Specification<Drink> appleSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower().Contains("apple")));
-            Specification<Drink> orangeSpec = Spec.For<Drink>(d => d.With.Any(w => w.ToLower().Contains("orange")));
+            ISpecification<Drink> juiceSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower().Contains("juice")));
+            ISpecification<Drink> appleSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower().Contains("apple")));
+            ISpecification<Drink> orangeSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower().Contains("orange")));
 
             // Act
-            var appleOrOrangeJuiceSpec = juiceSpec & (appleSpec | orangeSpec);
+            var appleOrOrangeJuiceSpec = juiceSpec.And(appleSpec.Or(orangeSpec));
 
             // Assert
             appleOrOrangeJuiceSpec.IsSatisfiedBy(appleJuice).Should().BeTrue();
@@ -58,11 +51,11 @@ namespace NSpecifications.Tests.Abstract
             // Arrange
             Drink coldWhiskey = Drink.ColdWhiskey();
             Drink appleJuice = Drink.AppleJuice();
-            Specification<Drink> whiskeySpec = Spec.For<Drink>(d => d.Name.ToLower() == "whiskey");
-            Specification<Drink> coldSpec = Spec.For<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
+            ISpecification<Drink> whiskeySpec = Spec.Of<Drink>(d => d.Name.ToLower() == "whiskey");
+            ISpecification<Drink> coldSpec = Spec.Of<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
 
             // Act
-            var coldWhiskeySpec = whiskeySpec & coldSpec;
+            var coldWhiskeySpec = whiskeySpec.And(coldSpec);
 
             // Assert
             coldWhiskeySpec.IsSatisfiedBy(coldWhiskey).Should().BeTrue();
