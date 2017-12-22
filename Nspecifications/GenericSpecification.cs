@@ -7,7 +7,7 @@ namespace NSpecifications
     /// Generic implementation of ASpecification abstract class.
     /// </summary>
     /// <typeparam name="T">The type of candidate.</typeparam>
-    /// <remarks>If your specification relies on properties that are changed after instatiating it
+    /// <remarks>If your specification relies on properties that are changed after instantiating it
     /// this implementation might fail because the IsSatisfiedBy is compiled and cached on it's first 
     /// usage.</remarks>
     /// <example><code>var blackSpec = new <see cref="GenericSpecification{T}"/>(c => c.Name.ToLower() == "black");></code></example>
@@ -20,7 +20,7 @@ namespace NSpecifications
         internal static readonly Spec<T> None = new GenericSpecification<T>(x => false);
 
         /// <summary>
-        /// Caches the compiled Expression so that it doesn't have to compile everytime IsSatisfiedBy is
+        /// Caches the compiled Expression so that it doesn't have to compile every time IsSatisfiedBy is
         /// invoked.
         /// </summary>
         Func<T, bool> _compiledFunc;
