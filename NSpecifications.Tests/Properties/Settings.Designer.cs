@@ -27,7 +27,7 @@ namespace NSpecifications.Tests.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\Joao\\Documents\\Visual Stud" +
-            "io 2013\\Projects\\DDD\\DDD.Tests\\Data\\StoreDb.mdf\";Integrated Security=True;Connec" +
+            "io 2013\\Projects\\DDD\\DDD.Tests\\Data\\StoreDb.mdf\";Integrated Security=Any;Connec" +
             "t Timeout=30")]
         public string StoreDbConnectionString {
             get {

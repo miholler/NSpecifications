@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using FluentAssertions;
 using NSpecifications.Tests.Entities;
 using NUnit.Framework;
@@ -14,8 +14,8 @@ namespace NSpecifications.Tests
             // Arrange
             Drink coldWhiskeyCandidate = Drink.ColdWhiskey();
             Drink appleJuiceCandidate = Drink.AppleJuice();
-            Spec<Drink> whiskeySpec = Spec.Of<Drink>(d => d.Name.ToLower() == "whiskey");
-            Spec<Drink> coldDrinkSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
+            ASpec<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
+            ASpec<Drink> coldDrinkSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
 
             // Act
             var coldWhiskey = whiskeySpec & coldDrinkSpec;
@@ -35,9 +35,9 @@ namespace NSpecifications.Tests
             Drink blackberryJuice = Drink.BlackberryJuice();
             Drink appleJuice = Drink.AppleJuice();
             Drink orangeJuice = Drink.OrangeJuice();
-            Spec<Drink> juiceSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower().Contains("juice")));
-            Spec<Drink> appleSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower().Contains("apple")));
-            Spec<Drink> orangeSpec = Spec.Of<Drink>(d => d.With.Any(w => w.ToLower().Contains("orange")));
+            ASpec<Drink> juiceSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower().Contains("juice")));
+            ASpec<Drink> appleSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower().Contains("apple")));
+            ASpec<Drink> orangeSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower().Contains("orange")));
 
             // Act
             var appleOrOrangeJuice = juiceSpec & (appleSpec | orangeSpec);
@@ -57,8 +57,8 @@ namespace NSpecifications.Tests
             // Arrange
             Drink coldWhiskey = Drink.ColdWhiskey();
             Drink appleJuice = Drink.AppleJuice();
-            Spec<Drink> whiskeySpec = Spec.Of<Drink>(d => d.Name.ToLower() == "whiskey");
-            Spec<Drink> coldSpec = Spec.Of<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
+            ASpec<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
+            ASpec<Drink> coldSpec = new Spec<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
 
             // Act
             var coldWhiskeySpec = whiskeySpec & coldSpec;
@@ -69,6 +69,30 @@ namespace NSpecifications.Tests
             // And
             coldWhiskey.Is(coldWhiskeySpec).Should().BeTrue();
             appleJuice.Is(coldWhiskeySpec).Should().BeFalse();
+        }
+
+        [Test]
+        public void Any()
+        {
+            // Arrange
+            Drink blackberryJuice = Drink.BlackberryJuice();
+            Drink appleJuice = Drink.AppleJuice();
+            Drink orangeJuice = Drink.OrangeJuice();
+            
+            // Assert
+            new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.Any<Drink>()).Should().BeTrue();
+        }
+
+        [Test]
+        public void Not()
+        {
+            // Arrange
+            Drink blackberryJuice = Drink.BlackberryJuice();
+            Drink appleJuice = Drink.AppleJuice();
+            Drink orangeJuice = Drink.OrangeJuice();
+
+            // Assert
+            new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.Not<Drink>()).Should().BeFalse();
         }
 
     }
