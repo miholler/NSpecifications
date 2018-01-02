@@ -37,7 +37,9 @@ public Places[] FindCheapPlaces(bool? isCheap = null) {
     // Apply filter only if a filter was specified
     if (isCheap.HasValue)
         spec = spec & (CheapPlace == isCheap.Value);
-    repository.Find(spec):
+    
+    // Let the repository search it in the DB
+    return repository.Find(spec);
 }
 ```
 Specifications can also be useful if you want to:
