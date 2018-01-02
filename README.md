@@ -30,9 +30,11 @@ static ASpec<Place> CheapPlace = new Spec<Place>(p => p.Price < 10);
 // If isCheap is true it will return only Cheap places
 // If isCheap is false it will return all places that are not Cheap
 public Places[] FindCheapPlaces(bool? isCheap = null) {
+    // Initialize spec with an all-inclusive specification
     var spec = Spec.Any<Place>();
+    // Apply filter only if a filter was specified
     if (isCheap.HasValue)
-        spec = spec & (isCheap.Value == CheapPlace);
+        spec = spec & (CheapPlace == isCheap.Value);
     repository.Find(spec):
 }
 ```
