@@ -160,7 +160,7 @@ public User[] FindByNameOrLockedStatus(string name = null, bool? isLockedOut = n
 
 ## Is / Are ##
 
-Usually Specifications are used to evaluate candidates, but another possible use case is to do it the other way around, to check if a given candidate (or a set of candidates) satisfy a given specification.
+Usually candidates are checked against Specifications, but another possible use case is to do it the other way around, to check if a given specification matches the attributes of a candidate or set of candidates.
 
 ```csharp
 var cold = new Spec<Drink>(d => d.TemperatureCelsius < 2);
