@@ -80,7 +80,7 @@ This way of using Specifications had some cons:
 
 Let's see now a more intuitive way to create and manage Specifications.
 
-## The New Way: new Spec<T>(expression) ##
+## The New Way: `new Spec<T>(expression)` ##
 
 `ISpecification<T>` is now extended by the `ASpec<T>` *abstract* class. This abstract class enables a set of new features such as: 
 
@@ -158,10 +158,19 @@ public User[] FindByNameOrLockedStatus(string name = null, bool? isLockedOut = n
 }
 ```
 
+## Is / Are ##
 
+Usually Specifications are used to evaluate candidates, but another possible use case is to do it the other way around, to check if a given candidate (or a set of candidates) satisfy a given specification.
 
- 
+```csharp
+var cold = new Spec<Drink>(d => d.TemperatureCelsius < 2);
 
+if (candidateDrink.Is(cold))
+    Console.Write("Candidate drink is cold."):
+    
+if (new[] { blackberryJuice, appleJuice, orangeJuice }.Are(cold))
+    Console.Write("All candidate drinks are cold."):
+```
 
 
 
