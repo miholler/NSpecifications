@@ -24,7 +24,7 @@ Specification pattern will allow you to:
    
 Example combining specifications with a boolean expression:
 ```csharp
-public static ASpec<Place> CheapPlace = new Spec<Place>(p => p.Price < 100);
+static ASpec<Place> CheapPlace = new Spec<Place>(p => p.Price < 10);
 
 // If isCheap is not set it will simply return all places
 // If isCheap is true it will return only Cheap places
