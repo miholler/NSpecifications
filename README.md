@@ -39,7 +39,7 @@ Specifications can also be useful if you want to:
  - Use *ReSharper* or reflection for easily tracing **all existing queries** in the source code 
  - Write more readable, manageable and elegant code.
 
-Specifications are described by Eric Evans as separate, combinable, rule objects, based on the concept of predicates but more specialized. **"A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."**
+Specifications are described by Eric Evans as separate, combinable, rule objects, based on the concept of predicates. **"A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."**
 
 The Old Way: ISpecification(T)
 --------------
