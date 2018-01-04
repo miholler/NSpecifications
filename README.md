@@ -153,7 +153,7 @@ public User[] FindByNameAndLockedStatus(string name = null, bool? isLockedOut = 
     	spec = spec & User.NamedLike(name);
     // Apply LockeOut filter
     if (isLockedOut.HasValue)
-    	spec = spec & (User.LockedOut == isLockedOut);
+    	spec = spec & (User.LockedOut == isLockedOut.Value);
     var users = _repository.Find(spec);
 }
 ```
