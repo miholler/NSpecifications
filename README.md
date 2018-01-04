@@ -146,14 +146,18 @@ While in the first member `LockedOut` is instantiated once (it's a readonly stat
 When I need to make my query I can do it like this:
 ```csharp
 public User[] FindByNameAndLockedStatus(string name = null, bool? isLockedOut = null) {
+    
     // Initialize the spec with an all inclusive spec
     var spec = Spec.Any<User>;
+    
     // Apply Name filter
     if (!string.IsNullOrEmpty(name))
     	spec = spec & User.NamedLike(name);
+    
     // Apply LockeOut filter
     if (isLockedOut.HasValue)
     	spec = spec & (User.LockedOut == isLockedOut.Value);
+    
     var users = _repository.Find(spec);
 }
 ```
