@@ -166,10 +166,10 @@ Usually candidates are checked against Specifications, but another possible use 
 var cold = new Spec<Drink>(d => d.TemperatureCelsius < 2);
 
 if (candidateDrink.Is(cold))
-    Console.Write("Candidate drink is cold."):
+    Console.Write("Candidate drink is cold.");
     
 if (new[] { blackberryJuice, appleJuice, orangeJuice }.Are(cold))
-    Console.Write("All candidate drinks are cold."):
+    Console.Write("All candidate drinks are cold.");
 ```
 
 ## Install it from NuGet Gallery ##
