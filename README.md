@@ -120,7 +120,7 @@ First I'd have to find a meaningful place to store my specifications:
 
  - It could be in a static class called `Specifications` or `Specs` for short. I could invoke it like this: `Specs.LockedOutUser`.   
  - Or it could be in a static classe per entity type like (`UserSpecs`, `UserGroupSpecs`, ...). Ex: `UserSpecs.LockedOut` .
- - It could be in a static members inside the `User` entity. Ex: `User.LockedOut`. This is my favourite, because specifications are always tightly coupled to entities, so that can make maintenance easier. 
+ - It could be in a static members inside the `User` entity. Ex: `User.LockedOut`. This is my favourite, because specifications are always tightly coupled to entities and this can make maintenance easier. 
 
 The only thing I'd like to note here is that hosting specifications in static members do not present any problem for Unit Testing. Specifications usually don't need to be mocked.
 
