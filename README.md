@@ -172,7 +172,10 @@ if (new[] { blackberryJuice, appleJuice, orangeJuice }.Are(cold))
     Console.Write("All candidate drinks are cold."):
 ```
 
-
+## Install it from NuGet Gallery ##
+```
+Install-Package NSpecifications -Version 1.0.1
+```
 
 
 References:
