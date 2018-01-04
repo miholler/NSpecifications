@@ -132,12 +132,12 @@ public class User
     public bool IsLockedOut { get; }
 	
     // Spec for LockedOut
-    public static readonly Specification<User> LockedOut = Spec.For<User>(user => user.IsLockedOut);  
+    public static readonly ASpec<User> LockedOut = new Spec<User>(user => user.IsLockedOut);  
     	
     // Spec for NamedLike
-    public static Specification<User> NamedLike(string text) 
+    public static ASpec<User> NamedLike(string text) 
     {
-    	return Spec.For<User>(user => name.Contains(text));
+    	return new Spec<User>(user => name.Contains(text));
     }
 }
 ```
