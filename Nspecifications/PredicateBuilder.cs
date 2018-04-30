@@ -304,7 +304,7 @@ namespace NSpecifications
             }
             if (list != null)
             {
-                return list.AsReadOnly();
+                return new ReadOnlyCollection<Expression>(list);
             }
             return original;
         }
