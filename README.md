@@ -178,7 +178,7 @@ if (new[] { blackberryJuice, appleJuice, orangeJuice }.Are(cold))
 
 ## Install it from NuGet Gallery ##
 ```
-Install-Package NSpecifications -Version 1.0.1
+Install-Package NSpecifications -Version 1.1.0
 ```
 
 
