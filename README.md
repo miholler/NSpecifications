@@ -1,4 +1,4 @@
-# NSpecifications -- Specifications on .net
+# NSpecifications - Specifications on .net
 ## What is the Specification Pattern?
 When selecting a subset of objects, it allows to separate the statement of **what kind of objects can be selected** from the **object that does the selection**. 
 
@@ -85,7 +85,7 @@ if (new[] { blackberryJuice, appleJuice, orangeJuice }.Are(cold))
 Specifications are described by Eric Evans as separate, combinable, rule objects, based on the concept of predicates but more specialized. **"A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."**
 
 ## Technical Documentation
-### ISpecification(T) -- The Old Way of doing things
+### ISpecification(T) - The Old Way of doing things
 
 The most basic form of Specification used to be implemented via a simple interface, the probem was that they could only be used for in-memory queries. 
 ```csharp
