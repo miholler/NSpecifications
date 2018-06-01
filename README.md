@@ -1,28 +1,53 @@
-NSpecifications - Specification Pattern for .Net
-====
+# NSpecifications -- Specifications on .net
+## What is the Specification Pattern?
+When selecting a subset of objects, it allows to separate the statement of **what kind of objects can be selected** from the **object that does the selection**. 
 
-NSpecifications is an easy-to-use library, grounded on the principles of the Domain-Driven Design. It provides a great way to take advantage of the Specification Pattern on .Net.
+Ex: 
 
-This is what you can do with Specifications:
+> A cargo has a separate storage specification to describe what kind of
+> container can contain it. The specification object has a clear and
+> limited responsibility, which can be separated and decoupled from the
+> domain object that uses it.
 
- 1. **Validate an object to see if it fulfils a set of rules or is ready for some purpose;**
- 2. **Filter an in-memory collection of objects or query a DB with the same code;**
- 3. **Use it on a factory for specifying some rules or properties that the new instance must fulfil.**
+## What can you do with Specification Pattern?
+1. **Validate an object** or check that only suitable objects are used for a certain role
+2. **Select a subset of objects** based a specified criteria, and refresh the selection at various times
+3. Describe what an object might do, without explaining the details of how the object does it, but in such a way that **a candidate might be built to fulfill the requirement**
 
-Although **Specification pattern is very flexible and useful**, it's been underestimated due to the lack of awareness about it, and it's also been often avoided due of the pains of implementing it in OOP languages that don't support lambda expressions, fortunately this is no longer the case with C#. 
+## What are the advantages of this library over others
+1. One-liner specifications
+2. Query an **in-memory collection** and **databases** using same code
+4. Easy **composition** of specifications
+6. Use a Specification in place of any `Expression<Func<T, bool>>` and `Func<T, bool>`
+7. Combine a `boolean` with a Specification in order to negate it when value is `false`
+8. Is / Are extension methods
 
-Specification pattern will allow you to:
+### One-liner specifications
+```csharp
+var greatWhiskey = new Spec<Drink>(drink => drink.Type == "Whiskey" && drink.Age >= 11);
+```
 
- - Use the **same code for querying a database or an in-memory collection of objects**: 
-	 - Query a database: `repository.Find(cheapPlacesToEat & open)`
-	 - Filter in-memory list: `list.Where(cheapPlacesToEat & open)`
- - Use it **in place of lambda expressions** that work with the `IQueryable<T>` interface
- - Encapsulate **predicates that can be reused over and over again** (a predicate is just like a query but only for a specific entity),
- - **Compose** specifications **just like if they were boolean expressions**  (&, |, !, ==, !=)
- - Create bigger specifications from the composition of smaller specifications
- - Combine a specifications with a boolean expression.
-   
-Example combining specifications with a boolean expression:
+### Query an in-memory collection and databases using same code
+|                |                          |
+|----------------|-------------------------------|
+|Database query| `dataContext.Places.Where(cheapPlacesToEat & open)`
+|Filter in-memory collection| `list.Where(cheapPlacesToEat & open)`   
+|                |                          |
+### Easy **composition** of specifications
+```csharp
+var greatWhiskey = new Spec<Drink>(drink => drink.Type == "Whiskey" && drink.Age >= 11);
+var fresh = new Spec<Drink>(drink => drink.Extras.Contains("Ice"));
+var myFavourite = greatWhiskey & fresh;
+var yourFavourite = greatWhiskey & !fresh;
+```
+### Use a Specification in place of any `Expression<Func<T, bool>>` and `Func<T, bool>`
+```csharp
+var books = new List<Book>();
+(...) 
+var boringBookSpec = new Spec<Book>(book => book.NumberOfPages > 300);
+var boringBooks = books.Where(boringBookSpec);
+```
+### Combine a `boolean` with a Specification in order to negate it when value is `false`
 ```csharp
 static ASpec<Place> CheapPlace = new Spec<Place>(p => p.Price < 10);
 
@@ -42,14 +67,26 @@ public Places[] FindPlaces(bool? isCheap = null) {
     return repository.Find(spec);
 }
 ```
-Specifications can also be useful if you want to:
- - Use *ReSharper* or reflection for easily tracing **all existing queries** in the source code 
- - Write more readable, manageable and elegant code.
+### Is / Are extension methods
+```csharp
+var cold = new Spec<Drink>(d => d.TemperatureCelsius < 2);
 
+if (candidateDrink.Is(cold))
+    Console.Write("Candidate drink is cold.");
+    
+if (new[] { blackberryJuice, appleJuice, orangeJuice }.Are(cold))
+    Console.Write("All candidate drinks are cold.");
+```
+## Other possible reasons
+ - Easily finding **all existing queries** in the source code with a simple search for usages of `Spec`
+ - Write more readable, manageable and elegant code
+
+## This Library was based on Eric Evans book
 Specifications are described by Eric Evans as separate, combinable, rule objects, based on the concept of predicates but more specialized. **"A SPECIFICATION is a predicate that determines if an object does or does not satisfy some criteria."**
 
-The Old Way: ISpecification(T)
---------------
+## Technical Documentation
+### ISpecification(T) -- The Old Way of doing things
+
 The most basic form of Specification used to be implemented via a simple interface, the probem was that they could only be used for in-memory queries. 
 ```csharp
 public class BoringBookSpec : ISpecification<Book> {
@@ -80,7 +117,7 @@ This way of using Specifications had some cons:
 
 Let's see now a more intuitive way to create and manage Specifications.
 
-## The New Way: `new Spec<T>(expression)` ##
+### The New Way: `new Spec<T>(expression)` ##
 
 `ISpecification<T>` is now extended by the `ASpec<T>` *abstract* class. This abstract class enables a set of new features such as: 
 
@@ -112,7 +149,7 @@ Let me dig into the details:
  - I can now compose specifications using friendly operators: `!` (not), `&` (and), `|` (or), == (compare spec with a boolean).
  - I'm passing my specifications directly as a parameter to a repository method that expects a Linq Expression, but it receives a specification instead and that's converted automatically.
 
-## Use Case ##
+## Real Use Cases ##
 
 Let's say that I need to search for users by name (if specified) and by their locked-out state. This is how I'd do it.
 
@@ -162,27 +199,11 @@ public User[] FindByNameAndLockedStatus(string name = null, bool? isLockedOut = 
 }
 ```
 
-## Is / Are ##
-
-Usually candidates are checked against Specifications, but another possible use case is to do it the other way around, to check if a given specification matches the attributes of a candidate or set of candidates.
-
-```csharp
-var cold = new Spec<Drink>(d => d.TemperatureCelsius < 2);
-
-if (candidateDrink.Is(cold))
-    Console.Write("Candidate drink is cold.");
-    
-if (new[] { blackberryJuice, appleJuice, orangeJuice }.Are(cold))
-    Console.Write("All candidate drinks are cold.");
-```
-
 ## Install it from NuGet Gallery ##
 ```
 Install-Package NSpecifications -Version 1.1.0
 ```
 
-
-References:
+## References:
 http://martinfowler.com/apsupp/spec.pdf
-
-
+https://domainlanguage.com/ddd/
