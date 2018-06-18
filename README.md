@@ -87,7 +87,7 @@ Specifications are described by Eric Evans as separate, combinable, rule objects
 ## Technical Documentation
 ### The Old Way: `ISpecification<T>`
 
-The most basic form of Specification used to be implemented via a simple interface, the probem was that they could only be used for in-memory queries. 
+The most basic form of Specification used to be implemented via a simple interface, the probem is that it could only be used for in-memory queries. 
 ```csharp
 public class BoringBookSpec : ISpecification<Book> {
     public IsSatisfiedBy(Book book)
@@ -96,7 +96,7 @@ public class BoringBookSpec : ISpecification<Book> {
     }
 }
 ```
-And then we could use it like this:
+We could call it like this:
 ```csharp
 var isBoring = new BoringBookSpec().IsSatisfiedBy(book);
 ```
@@ -105,7 +105,7 @@ Or like this:
 var boringBookSpec = new BoringBookSpec();
 var boringBooks = allBooks.Where(boringBookSpec.IsSatisfiedBy);
 ```
-`ISpecification<T>` could also be composed:
+`ISpecification<T>` could also do composition:
 ```csharp
 var boringBookSpec = lowRatedBookSpec.And(bigBookSpec);
 ```
@@ -206,4 +206,5 @@ Install-Package NSpecifications -Version 1.1.0
 
 ## References:
 http://martinfowler.com/apsupp/spec.pdf
+
 https://domainlanguage.com/ddd/
