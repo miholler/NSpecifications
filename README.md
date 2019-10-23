@@ -201,7 +201,7 @@ public User[] FindByNameAndLockedStatus(string name = null, bool? isLockedOut = 
 
 ## Install it from NuGet Gallery ##
 ```
-Install-Package NSpecifications -Version 1.1.0
+Install-Package NSpecifications
 ```
 
 ## References:
