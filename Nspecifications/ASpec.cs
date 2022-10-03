@@ -140,7 +140,7 @@ namespace NSpecifications
             return Expression.ToString();
         }
 
-        public sealed class And<T> : ASpec<T>, IOrSpecification<T>
+        public sealed class And<T> : ASpec<T>, IAndSpecification<T>
         {
             public ASpec<T> Spec1 { get; private set; }
 
