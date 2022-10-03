@@ -35,9 +35,9 @@ namespace NSpecifications.Tests
             Drink blackberryJuice = Drink.BlackberryJuice();
             Drink appleJuice = Drink.AppleJuice();
             Drink orangeJuice = Drink.OrangeJuice();
-            ASpec<Drink> juiceSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower().Contains("juice")));
-            ASpec<Drink> appleSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower().Contains("apple")));
-            ASpec<Drink> orangeSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower().Contains("orange")));
+            ASpec<Drink> juiceSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("juice"));
+            ASpec<Drink> appleSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("apple"));
+            ASpec<Drink> orangeSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("orange"));
 
             // Act
             var appleOrOrangeJuice = juiceSpec & (appleSpec | orangeSpec);
