@@ -140,15 +140,15 @@ namespace NSpecifications
             return Expression.ToString();
         }
 
-        public sealed class And<T> : ASpec<T>, IOrSpecification<T>
+        public sealed class And<T> : ASpec<T>, IAndSpecification<T>
         {
             public ASpec<T> Spec1 { get; private set; }
 
             public ASpec<T> Spec2 { get; private set; }
 
-            ISpecification<T> IOrSpecification<T>.Spec1 { get { return Spec1; } }
+            ISpecification<T> IAndSpecification<T>.Spec1 { get { return Spec1; } }
 
-            ISpecification<T> IOrSpecification<T>.Spec2 { get { return Spec2; } }
+            ISpecification<T> IAndSpecification<T>.Spec2 { get { return Spec1; } }
 
             internal And(ASpec<T> spec1, ASpec<T> spec2)
             {
