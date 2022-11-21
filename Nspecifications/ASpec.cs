@@ -181,7 +181,7 @@ namespace NSpecifications
 
             ISpecification<T> IOrSpecification<T>.Spec1 { get { return Spec1; } }
 
-            ISpecification<T> IOrSpecification<T>.Spec2 { get { return Spec1; } }
+            ISpecification<T> IOrSpecification<T>.Spec2 { get { return Spec2; } }
 
             internal Or(ASpec<T> spec1, ASpec<T> spec2)
             {
