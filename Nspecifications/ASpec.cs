@@ -10,6 +10,9 @@ public abstract class ASpec<T> : ISpecification<T>
 
     protected Func<T, bool> CompiledPredicate => _compiledPredicate ??= Predicate.Compile();
 
+    public ASpec<TDerived> CastUp<TDerived>() where TDerived : T
+        => new CastSpec<T, TDerived>(Predicate);
+
     public virtual bool IsSatisfiedBy(T candidate)
         => CompiledPredicate(candidate);
 
@@ -53,6 +56,16 @@ public abstract class ASpec<T> : ISpecification<T>
 
     public static ASpec<T> operator !=(bool value, ASpec<T> spec)
         => value ? !spec : spec;
+}
+
+file sealed class CastSpec<TFrom, TTo> : ASpec<TTo> where TTo : TFrom
+{
+    public CastSpec(Expression<Func<TFrom, bool>> predicate)
+    {
+        Predicate = PredicateBuilder.Cast<TFrom, TTo>(predicate);
+    }
+
+    public override Expression<Func<TTo, bool>> Predicate { get; }
 }
 
 file sealed class NotSpec<T> : ASpec<T>
