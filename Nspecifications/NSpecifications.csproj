@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+	<Authors>João Oliveira</Authors>
+	<Copyright>Copyright © 2014</Copyright>
+	<Version>1.1.0</Version>
+	<Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <Copyright>Copyright ©  2014</Copyright>
-    <Version>1.0.2</Version>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+  <ItemGroup Label="GlobalUsings">
+    <Using Include="System" />
+	<Using Include="System.Collections.Generic" />
+	<Using Include="System.Linq" />
+	<Using Include="System.Linq.Expressions" />
   </ItemGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
