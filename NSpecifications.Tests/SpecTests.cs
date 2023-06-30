@@ -1,99 +1,92 @@
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NSpecifications.Tests.Entities;
 using NUnit.Framework;
 
-namespace NSpecifications.Tests
+namespace NSpecifications.Tests;
+
+[TestFixture]
+public sealed class SpecTests
 {
-    [TestFixture]
-    public class SpecTests
+    [Test]
+    public void WhiskeyAndCold()
     {
-        [Test]
-        public void WhiskeyAndCold()
-        {
-            // Arrange
-            Drink coldWhiskeyCandidate = Drink.ColdWhiskey();
-            Drink appleJuiceCandidate = Drink.AppleJuice();
-            ASpec<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
-            ASpec<Drink> coldDrinkSpec = new Spec<Drink>(d => d.With.Any(w => w.ToLower() == "ice"));
+        // Arrange
+        var coldWhiskey = Drink.ColdWhiskey();
+        var appleJuice = Drink.AppleJuice();
+        var whiskeySpec = new Spec<Drink>(d => d.Name.Equals("whiskey", StringComparison.OrdinalIgnoreCase));
+        var coldSpec = new Spec<Drink>(d => d.With.Any(w => w.Equals("ice", StringComparison.OrdinalIgnoreCase)));
 
-            // Act
-            var coldWhiskey = whiskeySpec & coldDrinkSpec;
+        // Act
+        var coldWhiskeySpec = whiskeySpec & coldSpec;
 
-            // Assert
-            coldWhiskey.IsSatisfiedBy(coldWhiskeyCandidate).Should().BeTrue();
-            coldWhiskey.IsSatisfiedBy(appleJuiceCandidate).Should().BeFalse();
-            // And
-            coldWhiskeyCandidate.Is(coldWhiskey).Should().BeTrue();
-            appleJuiceCandidate.Is(coldWhiskey).Should().BeFalse();
-        }
+        // Assert
+        coldWhiskeySpec.IsSatisfiedBy(coldWhiskey).Should().BeTrue();
+        coldWhiskeySpec.IsSatisfiedBy(appleJuice).Should().BeFalse();
+        // And
+        coldWhiskey.Is(coldWhiskeySpec).Should().BeTrue();
+        appleJuice.Is(coldWhiskeySpec).Should().BeFalse();
+    }
 
-        [Test]
-        public void AppleOrOrangeJuice()
-        {
-            // Arrange
-            Drink blackberryJuice = Drink.BlackberryJuice();
-            Drink appleJuice = Drink.AppleJuice();
-            Drink orangeJuice = Drink.OrangeJuice();
-            ASpec<Drink> juiceSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("juice"));
-            ASpec<Drink> appleSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("apple"));
-            ASpec<Drink> orangeSpec = new Spec<Drink>(d => d.Name.ToLower().Contains("orange"));
+    [Test]
+    public void AppleOrOrangeJuice()
+    {
+        // Arrange
+        var blackberryJuice = Drink.BlackberryJuice();
+        var appleJuice = Drink.AppleJuice();
+        var orangeJuice = Drink.OrangeJuice();
+        var juiceSpec = new Spec<Drink>(d => d.Name.Contains("juice", StringComparison.OrdinalIgnoreCase));
+        var appleSpec = new Spec<Drink>(d => d.Name.Contains("apple", StringComparison.OrdinalIgnoreCase));
+        var orangeSpec = new Spec<Drink>(d => d.Name.Contains("orange", StringComparison.OrdinalIgnoreCase));
 
-            // Act
-            var appleOrOrangeJuice = juiceSpec & (appleSpec | orangeSpec);
+        // Act
+        var appleOrOrangeJuiceSpec = juiceSpec & (appleSpec | orangeSpec);
 
-            // Assert
-            appleOrOrangeJuice.IsSatisfiedBy(appleJuice).Should().BeTrue();
-            appleOrOrangeJuice.IsSatisfiedBy(orangeJuice).Should().BeTrue();
-            appleOrOrangeJuice.IsSatisfiedBy(blackberryJuice).Should().BeFalse();
-            // And
-            new[] {appleJuice, orangeJuice}.Are(appleOrOrangeJuice).Should().BeTrue();
-            blackberryJuice.Is(appleOrOrangeJuice).Should().BeFalse();
-        }
+        // Assert
+        appleOrOrangeJuiceSpec.IsSatisfiedBy(appleJuice).Should().BeTrue();
+        appleOrOrangeJuiceSpec.IsSatisfiedBy(orangeJuice).Should().BeTrue();
+        appleOrOrangeJuiceSpec.IsSatisfiedBy(blackberryJuice).Should().BeFalse();
+        // And
+        new[] { appleJuice, orangeJuice }.Are(appleOrOrangeJuiceSpec).Should().BeTrue();
+        blackberryJuice.Is(appleOrOrangeJuiceSpec).Should().BeFalse();
+    }
 
-        [Test]
-        public void And()
-        {
-            // Arrange
-            Drink coldWhiskey = Drink.ColdWhiskey();
-            Drink appleJuice = Drink.AppleJuice();
-            ASpec<Drink> whiskeySpec = new Spec<Drink>(d => d.Name.ToLower() == "whiskey");
-            ASpec<Drink> coldSpec = new Spec<Drink>(d => d.With.Any(a => a.ToLower() == "ice"));
+    [Test]
+    public void CastUp()
+    {
+        // Arrange
+        var coldWhiskey = Drink.ColdWhiskey();
+        var appleJuice = Drink.AppleJuice();
+        var whiskeySpec = new Spec<IDrink>(d => d.Name.Equals("whiskey", StringComparison.OrdinalIgnoreCase));
+        var coldSpec = new Spec<IDrink>(d => d.With.Any(w => w.Equals("ice", StringComparison.OrdinalIgnoreCase)));
 
-            // Act
-            var coldWhiskeySpec = whiskeySpec & coldSpec;
+        // Act
+        var coldWhiskeySpec = whiskeySpec & coldSpec;
 
-            // Assert
-            coldWhiskeySpec.IsSatisfiedBy(coldWhiskey).Should().BeTrue();
-            coldWhiskeySpec.IsSatisfiedBy(appleJuice).Should().BeFalse();
-            // And
-            coldWhiskey.Is(coldWhiskeySpec).Should().BeTrue();
-            appleJuice.Is(coldWhiskeySpec).Should().BeFalse();
-        }
+        //Assert
+        new[] { coldWhiskey, appleJuice }.Where(coldWhiskeySpec.CastUp<Drink>()).Should().NotContain(appleJuice);
+    }
 
-        [Test]
-        public void Any()
-        {
-            // Arrange
-            Drink blackberryJuice = Drink.BlackberryJuice();
-            Drink appleJuice = Drink.AppleJuice();
-            Drink orangeJuice = Drink.OrangeJuice();
-            
-            // Assert
-            new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.Any<Drink>()).Should().BeTrue();
-        }
+    [Test]
+    public void Any()
+    {
+        // Arrange
+        var blackberryJuice = Drink.BlackberryJuice();
+        var appleJuice = Drink.AppleJuice();
+        var orangeJuice = Drink.OrangeJuice();
 
-        [Test]
-        public void Not()
-        {
-            // Arrange
-            Drink blackberryJuice = Drink.BlackberryJuice();
-            Drink appleJuice = Drink.AppleJuice();
-            Drink orangeJuice = Drink.OrangeJuice();
+        // Assert
+        new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.Any<Drink>()).Should().BeTrue();
+    }
 
-            // Assert
-            new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.Not<Drink>()).Should().BeFalse();
-        }
+    [Test]
+    public void None()
+    {
+        // Arrange
+        var blackberryJuice = Drink.BlackberryJuice();
+        var appleJuice = Drink.AppleJuice();
+        var orangeJuice = Drink.OrangeJuice();
 
+        // Assert
+        new[] { blackberryJuice, appleJuice, orangeJuice }.Are(Spec.None<Drink>()).Should().BeFalse();
     }
 }

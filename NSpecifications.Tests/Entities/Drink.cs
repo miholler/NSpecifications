@@ -1,65 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace NSpecifications.Tests.Entities;
 
-namespace NSpecifications.Tests.Entities
+public class Drink : IDrink
 {
-    public class Drink
-    {
-        public Drink()
+    public int Id { get; set; }
+
+    public string Name { get; set; } = string.Empty;
+
+    public DateTime ManufacturedOn { get; set; }
+
+    public IList<string> With { get; set; } = new List<string>();
+
+    public static Drink ColdWhiskey(int id = default)
+        => new()
         {
-            With = new List<String>();
-        }
+            Id = id,
+            Name = "Whiskey",
+            With = { "Ice" },
+            ManufacturedOn = DateTime.Now.AddYears(-11)
+        };
 
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public DateTime ManufacturedOn { get; set; }
-
-        public List<string> With { get; set; }
-
-        internal static Drink ColdWhiskey(int id = default(int))
+    public static Drink AppleJuice(int id = default)
+        => new()
         {
-            return new Drink
-            {
-                Id = id,
-                Name = "Whiskey",
-                With = { "Ice" },
-                ManufacturedOn = DateTime.Now.AddYears(-11),
-            };
-        }
+            Id = id,
+            Name = "Apple Juice",
+            ManufacturedOn = DateTime.Now.AddMonths(-1)
+        };
 
-        internal static Drink AppleJuice(int id = default(int))
+    public static Drink OrangeJuice(int id = default)
+        => new()
         {
-            return new Drink
-            {
-                Id = id,
-                Name = "Apple Juice",
-                ManufacturedOn = DateTime.Now.AddMonths(-1),
-            };
-        }
+            Id = id,
+            Name = "Orange Juice",
+            ManufacturedOn = DateTime.Now.AddMonths(-1)
+        };
 
-        internal static Drink OrangeJuice(int id = default(int))
+    public static Drink BlackberryJuice(int id = default)
+        => new()
         {
-            return new Drink
-            {
-                Id = id,
-                Name = "Orange Juice",
-                ManufacturedOn = DateTime.Now.AddMonths(-1),
-            };
-        }
-
-        internal static Drink BlackberryJuice(int id = default(int))
-        {
-            return new Drink
-            {
-                Id = id,
-                Name = "Backberry Juice",
-                ManufacturedOn = DateTime.Now.AddMonths(-1),
-            };
-        }
-    }
+            Id = id,
+            Name = "Backberry Juice",
+            ManufacturedOn = DateTime.Now.AddMonths(-1)
+        };
 }
