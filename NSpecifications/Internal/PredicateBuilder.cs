@@ -1,19 +1,9 @@
-﻿using NSpecifications.Internal;
-using static System.Linq.Expressions.Expression;
+﻿using static System.Linq.Expressions.Expression;
 
-namespace NSpecifications;
+namespace NSpecifications.Internal;
 
-public static class PredicateBuilder
+internal static class PredicateBuilder
 {
-    public static Expression<Func<T, bool>> Any<T>()
-        => _ => true;
-
-    public static Expression<Func<T, bool>> None<T>()
-        => _ => false;
-
-    public static Expression<Func<T, bool>> Create<T>(Expression<Func<T, bool>> predicate)
-        => predicate;
-
     public static Expression<Func<TTo, bool>> Cast<TFrom, TTo>(Expression<Func<TFrom, bool>> predicate) where TTo : TFrom
     {
         var map = predicate.Parameters.ToDictionary(x => x, x => Parameter(typeof(TTo), x.Name));
