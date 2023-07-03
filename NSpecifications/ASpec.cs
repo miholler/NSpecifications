@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using NSpecifications.Internal;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NSpecifications;
 
@@ -199,9 +200,9 @@ file sealed class CastSpec<TFrom, TTo> : ASpec<TTo> where TTo : TFrom
 
 file sealed class NotSpec<T> : ASpec<T>
 {
-    public NotSpec(Expression<Func<T, bool>> inner)
+    public NotSpec(Expression<Func<T, bool>> predicate)
     {
-        Predicate = inner.Not();
+        Predicate = predicate.Not();
     }
 
     public override Expression<Func<T, bool>> Predicate { get; }
