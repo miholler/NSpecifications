@@ -8,7 +8,7 @@ public sealed class ParameterRebinder : ExpressionVisitor
     private readonly IReadOnlyDictionary<ParameterExpression, ParameterExpression> _map;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="ParameterRebinder"/>.
+    /// Initializes a new instance of the <see cref="ParameterRebinder"/> class.
     /// </summary>
     /// <param name="map">The map that describes which parameter is replaced by which.</param>
     public ParameterRebinder(IReadOnlyDictionary<ParameterExpression, ParameterExpression> map)
