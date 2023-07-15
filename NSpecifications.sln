@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSpecifications", "NSpecifi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DBFBCAD-144C-47BE-B552-7E6112F25756}"
 	ProjectSection(SolutionItems) = preProject
-		NSpecifications.1.1.0.nupkg = NSpecifications.1.1.0.nupkg
+		LICENSE.txt = LICENSE.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSpecifications.Tests", "NSpecifications.Tests\NSpecifications.Tests.csproj", "{F207197E-6B35-452F-9B18-6FFE9ED74B49}"
