@@ -2,20 +2,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<Authors>João Oliveira</Authors>
-	<Copyright>Copyright © 2014</Copyright>
-	<Version>1.1.0</Version>
-	<Nullable>enable</Nullable>
+    <Authors>João Oliveira</Authors>
+    <Copyright>Copyright © 2014</Copyright>
+    <Version>1.1.0</Version>
+    <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <TargetFramework>netstandard1.0</TargetFramework>
-	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup Label="GlobalUsings">
     <Using Include="System" />
-	<Using Include="System.Collections.Generic" />
-	<Using Include="System.Linq" />
-	<Using Include="System.Linq.Expressions" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Linq.Expressions" />
   </ItemGroup>
 
 </Project>
