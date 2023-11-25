@@ -39,7 +39,7 @@ jobs:
       run: dotnet restore
 
     - name: Pack
-      run: dotnet pack -c release
+      run: dotnet pack -c release -p:PackageVersion=$(GitVersion.SemVer)
 
     - name: Publish the package to nuget.org
       run: dotnet nuget push */bin/Release/*.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
