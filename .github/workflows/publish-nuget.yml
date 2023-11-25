@@ -27,6 +27,7 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0
       with:
         useConfigFile: true
+        updateAssemblyInfo: true
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
