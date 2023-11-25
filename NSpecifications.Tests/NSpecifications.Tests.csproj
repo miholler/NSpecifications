@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nspecifications\NSpecifications.csproj" />
+    <ProjectReference Include="..\NSpecifications\NSpecifications.csproj" />
   </ItemGroup>
 
 </Project>
