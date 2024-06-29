@@ -9,7 +9,8 @@
 /// this implementation might fail because the IsSatisfiedBy is compiled and cached on
 /// it's first usage. 
 /// </remarks>
-public class Spec<T> : ASpec<T>
+/// <param name="predicate">The predicate that defines the specification.</param>
+public class Spec<T>(Expression<Func<T, bool>> predicate) : ASpec<T>
 {
     /// <summary>
     /// Represents a specification that is satisfied by any candidate object.
@@ -21,18 +22,8 @@ public class Spec<T> : ASpec<T>
     /// </summary>
     public static readonly Spec<T> None = new(_ => false);
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Spec{T}"/> class
-    /// defined by a specified predicate.
-    /// </summary>
-    /// <param name="predicate">The predicate that defines the specification.</param>
-    public Spec(Expression<Func<T, bool>> predicate)
-    {
-        Predicate = predicate ?? throw new ArgumentNullException(nameof(predicate));
-    }
-
     /// <inheritdoc/>
-    public override Expression<Func<T, bool>> Predicate { get; }
+    public override Expression<Func<T, bool>> Predicate { get; } = predicate ?? throw new ArgumentNullException(nameof(predicate));
 }
 
 /// <summary>
