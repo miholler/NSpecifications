@@ -72,14 +72,9 @@ public static class SpecificationExtensions
         => new OrSpecification<T>(left, right);
 }
 
-file sealed class NotSpecification<T> : INotSpecification<T>
+file sealed class NotSpecification<T>(ISpecification<T> operand) : INotSpecification<T>
 {
-    public NotSpecification(ISpecification<T> operand)
-    {
-        Operand = operand ?? throw new ArgumentNullException(nameof(operand));
-    }
-
-    public ISpecification<T> Operand { get; }
+    public ISpecification<T> Operand { get; } = operand ?? throw new ArgumentNullException(nameof(operand));
 
     public bool IsSatisfiedBy(T candidate)
         => !Operand.IsSatisfiedBy(candidate);
@@ -88,17 +83,11 @@ file sealed class NotSpecification<T> : INotSpecification<T>
         => !Operand.IsSatisfiedBy(candidate);
 }
 
-file sealed class AndSpecification<T> : IAndSpecification<T>
+file sealed class AndSpecification<T>(ISpecification<T> left, ISpecification<T> right) : IAndSpecification<T>
 {
-    public AndSpecification(ISpecification<T> left, ISpecification<T> right)
-    {
-        Left = left ?? throw new ArgumentNullException(nameof(left));
-        Right = right ?? throw new ArgumentNullException(nameof(right));
-    }
+    public ISpecification<T> Left { get; } = left ?? throw new ArgumentNullException(nameof(left));
 
-    public ISpecification<T> Left { get; }
-
-    public ISpecification<T> Right { get; }
+    public ISpecification<T> Right { get; } = right ?? throw new ArgumentNullException(nameof(right));
 
     public bool IsSatisfiedBy(T candidate)
         => Left.IsSatisfiedBy(candidate) && Right.IsSatisfiedBy(candidate);
@@ -107,17 +96,11 @@ file sealed class AndSpecification<T> : IAndSpecification<T>
         => Left.IsSatisfiedBy(candidate) && Right.IsSatisfiedBy(candidate);
 }
 
-file sealed class OrSpecification<T> : IOrSpecification<T>
+file sealed class OrSpecification<T>(ISpecification<T> left, ISpecification<T> right) : IOrSpecification<T>
 {
-    public OrSpecification(ISpecification<T> left, ISpecification<T> right)
-    {
-        Left = left ?? throw new ArgumentNullException(nameof(left));
-        Right = right ?? throw new ArgumentNullException(nameof(right));
-    }
+    public ISpecification<T> Left { get; } = left ?? throw new ArgumentNullException(nameof(left));
 
-    public ISpecification<T> Left { get; }
-
-    public ISpecification<T> Right { get; }
+    public ISpecification<T> Right { get; } = right ?? throw new ArgumentNullException(nameof(right));
 
     public bool IsSatisfiedBy(T candidate)
         => Left.IsSatisfiedBy(candidate) || Right.IsSatisfiedBy(candidate);
