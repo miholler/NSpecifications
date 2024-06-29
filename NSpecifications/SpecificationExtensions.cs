@@ -78,9 +78,6 @@ file sealed class NotSpecification<T>(ISpecification<T> operand) : INotSpecifica
 
     public bool IsSatisfiedBy(T candidate)
         => !Operand.IsSatisfiedBy(candidate);
-
-    public bool IsSatisfiedBy(object candidate)
-        => !Operand.IsSatisfiedBy(candidate);
 }
 
 file sealed class AndSpecification<T>(ISpecification<T> left, ISpecification<T> right) : IAndSpecification<T>
@@ -91,9 +88,6 @@ file sealed class AndSpecification<T>(ISpecification<T> left, ISpecification<T> 
 
     public bool IsSatisfiedBy(T candidate)
         => Left.IsSatisfiedBy(candidate) && Right.IsSatisfiedBy(candidate);
-
-    public bool IsSatisfiedBy(object candidate)
-        => Left.IsSatisfiedBy(candidate) && Right.IsSatisfiedBy(candidate);
 }
 
 file sealed class OrSpecification<T>(ISpecification<T> left, ISpecification<T> right) : IOrSpecification<T>
@@ -103,8 +97,5 @@ file sealed class OrSpecification<T>(ISpecification<T> left, ISpecification<T> r
     public ISpecification<T> Right { get; } = right ?? throw new ArgumentNullException(nameof(right));
 
     public bool IsSatisfiedBy(T candidate)
-        => Left.IsSatisfiedBy(candidate) || Right.IsSatisfiedBy(candidate);
-
-    public bool IsSatisfiedBy(object candidate)
         => Left.IsSatisfiedBy(candidate) || Right.IsSatisfiedBy(candidate);
 }

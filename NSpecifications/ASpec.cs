@@ -8,7 +8,7 @@ namespace NSpecifications;
 /// generic interface.
 /// </summary>
 /// <typeparam name="T">The type of the candidate object.</typeparam>
-public abstract class ASpec<T> : ISpecification<T>
+public abstract class ASpec<T> : ISpecification<T>, ISpecification
 {
     private Func<T, bool>? _compiledPredicate;
 
@@ -51,8 +51,8 @@ public abstract class ASpec<T> : ISpecification<T>
     /// <see langword="true"/> if the specification is satisfied by the specified value;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public virtual bool IsSatisfiedBy(object candidate)
-        => IsSatisfiedBy((T)candidate);
+    bool ISpecification.IsSatisfiedBy(object? candidate)
+        => IsSatisfiedBy((T)candidate!);
 
     /// <summary>
     /// Determines whether the specified object is equal to the current specification.

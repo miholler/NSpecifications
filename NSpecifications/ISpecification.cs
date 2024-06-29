@@ -14,7 +14,7 @@ public interface ISpecification
     /// <see langword="true"/> if the specification is satisfied by the specified value;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    bool IsSatisfiedBy(object candidate);
+    bool IsSatisfiedBy(object? candidate);
 }
 
 /// <summary>
@@ -22,7 +22,7 @@ public interface ISpecification
 /// object meets a defined set of criteria.
 /// </summary>
 /// <typeparam name="T">The type of the candidate object.</typeparam>
-public interface ISpecification<T> : ISpecification
+public interface ISpecification<T>
 {
     /// <summary>
     /// Determines whether the specification is satisfied by a specified value.
