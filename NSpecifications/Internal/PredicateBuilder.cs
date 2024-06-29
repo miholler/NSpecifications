@@ -7,7 +7,7 @@ internal static class PredicateBuilder
     public static Expression<Func<TTo, bool>> Cast<TFrom, TTo>(Expression<Func<TFrom, bool>> predicate) where TTo : TFrom
     {
         var map = predicate.Parameters.ToDictionary(x => x, x => Parameter(typeof(TTo), x.Name));
-        var body = ParameterRebinder.Rebind(predicate.Body, map);
+        var body = ParameterReplacer.Replace(predicate.Body, map);
         return Lambda<Func<TTo, bool>>(body, map.Values);
     }
 
@@ -32,7 +32,7 @@ internal static class PredicateBuilder
             .ToDictionary(x => x.Right, x => x.Left);
 
         // Replace parameters in the right lambda expression with the parameters in the left
-        var rightBody = ParameterRebinder.Rebind(right.Body, map);
+        var rightBody = ParameterReplacer.Replace(right.Body, map);
 
         // Create a merged lambda expression with parameters from the left expression
         return Lambda<TDelegate>(merger(left.Body, rightBody), left.Parameters);
