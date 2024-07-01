@@ -1,4 +1,4 @@
-# NSpecifications - Specifications on .net
+# NSpecifications - Specifications on .Net
 ## What is the Specification Pattern?
 When selecting a subset of objects, it allows to separate the statement of **what kind of objects can be selected** from the **object that does the selection**. 
 

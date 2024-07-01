@@ -8,7 +8,7 @@ namespace NSpecifications;
 /// generic interface.
 /// </summary>
 /// <typeparam name="T">The type of the candidate object.</typeparam>
-public abstract class ASpec<T> : ISpecification<T>
+public abstract class ASpec<T> : ISpecification<T>, ISpecification
 {
     private Func<T, bool>? _compiledPredicate;
 
@@ -51,8 +51,8 @@ public abstract class ASpec<T> : ISpecification<T>
     /// <see langword="true"/> if the specification is satisfied by the specified value;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public virtual bool IsSatisfiedBy(object candidate)
-        => IsSatisfiedBy((T)candidate);
+    bool ISpecification.IsSatisfiedBy(object? candidate)
+        => IsSatisfiedBy((T)candidate!);
 
     /// <summary>
     /// Determines whether the specified object is equal to the current specification.
@@ -188,42 +188,22 @@ public abstract class ASpec<T> : ISpecification<T>
         => value ? !spec : spec;
 }
 
-file sealed class CastSpec<TFrom, TTo> : ASpec<TTo> where TTo : TFrom
+file sealed class CastSpec<TFrom, TTo>(Expression<Func<TFrom, bool>> predicate) : ASpec<TTo> where TTo : TFrom
 {
-    public CastSpec(Expression<Func<TFrom, bool>> predicate)
-    {
-        Predicate = PredicateBuilder.Cast<TFrom, TTo>(predicate);
-    }
-
-    public override Expression<Func<TTo, bool>> Predicate { get; }
+    public override Expression<Func<TTo, bool>> Predicate { get; } = PredicateBuilder.Cast<TFrom, TTo>(predicate);
 }
 
-file sealed class NotSpec<T> : ASpec<T>
+file sealed class NotSpec<T>(Expression<Func<T, bool>> predicate) : ASpec<T>
 {
-    public NotSpec(Expression<Func<T, bool>> predicate)
-    {
-        Predicate = predicate.Not();
-    }
-
-    public override Expression<Func<T, bool>> Predicate { get; }
+    public override Expression<Func<T, bool>> Predicate { get; } = predicate.Not();
 }
 
-file sealed class AndSpec<T> : ASpec<T>
+file sealed class AndSpec<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right) : ASpec<T>
 {
-    public AndSpec(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
-    {
-        Predicate = left.And(right);
-    }
-
-    public override Expression<Func<T, bool>> Predicate { get; }
+    public override Expression<Func<T, bool>> Predicate { get; } = left.And(right);
 }
 
-file sealed class OrSpec<T> : ASpec<T>
+file sealed class OrSpec<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right) : ASpec<T>
 {
-    public OrSpec(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
-    {
-        Predicate = left.Or(right);
-    }
-
-    public override Expression<Func<T, bool>> Predicate { get; }
+    public override Expression<Func<T, bool>> Predicate { get; } = left.Or(right);
 }
