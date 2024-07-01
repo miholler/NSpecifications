@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Authors>João Oliveira</Authors>
+    <Authors>João Oliveira, Michael Holler</Authors>
     <Copyright>Copyright © 2014</Copyright>
     <Version>1.2.0</Version>
     <Nullable>enable</Nullable>
