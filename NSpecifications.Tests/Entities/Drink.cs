@@ -8,7 +8,7 @@ public class Drink : IDrink
 
     public DateTime ManufacturedOn { get; set; }
 
-    public IList<string> With { get; set; } = new List<string>();
+    public IList<string> With { get; set; } = [];
 
     public static Drink ColdWhiskey(int id = default)
         => new()
