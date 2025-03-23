@@ -24,11 +24,19 @@ public class Spec<T>(Expression<Func<T, bool>> predicate) : ASpec<T>
 
     /// <inheritdoc/>
     public override Expression<Func<T, bool>> Predicate { get; } = predicate ?? throw new ArgumentNullException(nameof(predicate));
+
+    /// <summary>
+    /// Creates a specification that is defined by a specified predicate.
+    /// </summary>
+    /// <param name="predicate">The predicate that defines the specification.</param>
+    /// <returns>A <see cref="Spec{T}"/> that is defined by <paramref name="predicate"/>.</returns>
+    public static Spec<T> Create(Expression<Func<T, bool>> predicate)
+        => new(predicate);
 }
 
 /// <summary>
 /// Provides a set of static methods for working
-/// with <see cref="ASpec{T}"/> instances.
+/// with <see cref="Spec{T}"/> instances.
 /// </summary>
 public static class Spec
 {
@@ -36,19 +44,24 @@ public static class Spec
     /// Creates a specification that is satisfied by any candidate object.
     /// </summary>
     /// <typeparam name="T">The type of the candidate object.</typeparam>
-    /// <returns>
-    /// An <see cref="ASpec{T}"/> that is satisfied by any candidate object.
-    /// </returns>
-    public static ASpec<T> Any<T>()
+    /// <returns>A <see cref="Spec{T}"/> that is satisfied by any candidate object.</returns>
+    public static Spec<T> Any<T>()
         => Spec<T>.Any;
 
     /// <summary>
     /// Creates a specification that is not satisfied by any candidate object.
     /// </summary>
     /// <typeparam name="T">The type of the candidate object.</typeparam>
-    /// <returns>
-    /// An <see cref="ASpec{T}"/> that is not satisfied by any candidate object.
-    /// </returns>
-    public static ASpec<T> None<T>()
+    /// <returns>A <see cref="Spec{T}"/> that is not satisfied by any candidate object.</returns>
+    public static Spec<T> None<T>()
         => Spec<T>.None;
+
+    /// <summary>
+    /// Creates a specification that is defined by a specified predicate.
+    /// </summary>
+    /// <typeparam name="T">The type of the candidate object.</typeparam>
+    /// <param name="predicate">The predicate that defines the specification.</param>
+    /// <returns>A <see cref="Spec{T}"/> that is defined by <paramref name="predicate"/>.</returns>
+    public static Spec<T> Create<T>(Expression<Func<T, bool>> predicate)
+        => Spec<T>.Create(predicate);
 }
