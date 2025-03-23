@@ -30,7 +30,7 @@ public abstract class ASpec<T> : ISpecification<T>, ISpecification
     /// An <see cref="ASpec{TDerived}"/> whose candidate type is of type <typeparamref name="TDerived"/>.
     /// </returns>
     public ASpec<TDerived> CastUp<TDerived>() where TDerived : T
-        => new CastSpec<T, TDerived>(Predicate);
+        => new CastUpSpec<T, TDerived>(Predicate);
 
     /// <summary>
     /// Determines whether the current specification is satisfied by a specified value.
@@ -188,9 +188,9 @@ public abstract class ASpec<T> : ISpecification<T>, ISpecification
         => value ? !spec : spec;
 }
 
-file sealed class CastSpec<TFrom, TTo>(Expression<Func<TFrom, bool>> predicate) : ASpec<TTo> where TTo : TFrom
+file sealed class CastUpSpec<TFrom, TTo>(Expression<Func<TFrom, bool>> predicate) : ASpec<TTo> where TTo : TFrom
 {
-    public override Expression<Func<TTo, bool>> Predicate { get; } = PredicateBuilder.Cast<TFrom, TTo>(predicate);
+    public override Expression<Func<TTo, bool>> Predicate { get; } = PredicateBuilder<TFrom>.CastUp<TTo>(predicate);
 }
 
 file sealed class NotSpec<T>(Expression<Func<T, bool>> predicate) : ASpec<T>
@@ -200,10 +200,10 @@ file sealed class NotSpec<T>(Expression<Func<T, bool>> predicate) : ASpec<T>
 
 file sealed class AndSpec<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right) : ASpec<T>
 {
-    public override Expression<Func<T, bool>> Predicate { get; } = left.And(right);
+    public override Expression<Func<T, bool>> Predicate { get; } = left.AndAlso(right);
 }
 
 file sealed class OrSpec<T>(Expression<Func<T, bool>> left, Expression<Func<T, bool>> right) : ASpec<T>
 {
-    public override Expression<Func<T, bool>> Predicate { get; } = left.Or(right);
+    public override Expression<Func<T, bool>> Predicate { get; } = left.OrElse(right);
 }
