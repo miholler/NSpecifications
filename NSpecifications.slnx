@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="NSpecifications.Tests/NSpecifications.Tests.csproj" />
+  <Project Path="NSpecifications/NSpecifications.csproj" />
+</Solution>
