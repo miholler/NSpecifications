@@ -16,7 +16,11 @@ public static class SpecificationExtensions
     /// otherwise, <see langword="false"/>.
     /// </returns>
     public static bool Is<T>(this T candidate, ISpecification<T> spec)
-        => spec.IsSatisfiedBy(candidate);
+    {
+        ArgumentNullException.ThrowIfNull(spec);
+
+        return spec.IsSatisfiedBy(candidate);
+    }
 
     /// <summary>
     /// Determines whether multiple candidate objects satisfy a specification.
@@ -28,8 +32,13 @@ public static class SpecificationExtensions
     /// <see langword="true"/> if all candidate objects satisfy the specification;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public static  bool Are<T>(this IEnumerable<T> candidates, ISpecification<T> spec)
-        => candidates.All(spec.IsSatisfiedBy);
+    public static bool Are<T>(this IEnumerable<T> candidates, ISpecification<T> spec)
+    {
+        ArgumentNullException.ThrowIfNull(candidates);
+        ArgumentNullException.ThrowIfNull(spec);
+
+        return candidates.All(spec.IsSatisfiedBy);
+    }
 
     /// <summary>
     /// Creates a specification that negates a specification.
@@ -37,11 +46,15 @@ public static class SpecificationExtensions
     /// <typeparam name="T">The type of the candidate object.</typeparam>
     /// <param name="spec">The specification to negate.</param>
     /// <returns>
-    /// An <see cref="INotSpecification{T}"/> representing the negation of the
+    /// An <see cref="ISpecification{T}"/> representing the negation of the
     /// original specification.
     /// </returns>
-    public static INotSpecification<T> Not<T>(this ISpecification<T> spec)
-        => new NotSpecification<T>(spec);
+    public static ISpecification<T> Not<T>(this ISpecification<T> spec)
+    {
+        ArgumentNullException.ThrowIfNull(spec);
+
+        return new NotSpecification<T>(spec);
+    }
 
     /// <summary>
     /// Creates a specification that combines two specifications with
@@ -51,11 +64,16 @@ public static class SpecificationExtensions
     /// <param name="left">The first specification to combine.</param>
     /// <param name="right">The second specification to combine.</param>
     /// <returns>
-    /// An <see cref="IAndSpecification{T}"/> representing the combination of
+    /// An <see cref="ISpecification{T}"/> representing the combination of
     /// both specifications with a conditional AND operator.
     /// </returns>
-    public static IAndSpecification<T> And<T>(this ISpecification<T> left, ISpecification<T> right)
-        => new AndSpecification<T>(left, right);
+    public static ISpecification<T> And<T>(this ISpecification<T> left, ISpecification<T> right)
+    {
+        ArgumentNullException.ThrowIfNull(left);
+        ArgumentNullException.ThrowIfNull(right);
+
+        return new AndSpecification<T>(left, right);
+    }
 
     /// <summary>
     /// Creates a specification that combines two specifications with
@@ -65,37 +83,32 @@ public static class SpecificationExtensions
     /// <param name="left">The first specification to combine.</param>
     /// <param name="right">The second specification to combine.</param>
     /// <returns>
-    /// An <see cref="IOrSpecification{T}"/> representing the combination of
+    /// An <see cref="ISpecification{T}"/> representing the combination of
     /// both specifications with a conditional OR operator.
     /// </returns>
-    public static IOrSpecification<T> Or<T>(this ISpecification<T> left, ISpecification<T> right)
-        => new OrSpecification<T>(left, right);
+    public static ISpecification<T> Or<T>(this ISpecification<T> left, ISpecification<T> right)
+    {
+        ArgumentNullException.ThrowIfNull(left);
+        ArgumentNullException.ThrowIfNull(right);
+
+        return new OrSpecification<T>(left, right);
+    }
 }
 
-file sealed class NotSpecification<T>(ISpecification<T> operand) : INotSpecification<T>
+file sealed record NotSpecification<T>(ISpecification<T> Operand) : ISpecification<T>
 {
-    public ISpecification<T> Operand { get; } = operand ?? throw new ArgumentNullException(nameof(operand));
-
     public bool IsSatisfiedBy(T candidate)
         => !Operand.IsSatisfiedBy(candidate);
 }
 
-file sealed class AndSpecification<T>(ISpecification<T> left, ISpecification<T> right) : IAndSpecification<T>
+file sealed record AndSpecification<T>(ISpecification<T> Left, ISpecification<T> Right) : ISpecification<T>
 {
-    public ISpecification<T> Left { get; } = left ?? throw new ArgumentNullException(nameof(left));
-
-    public ISpecification<T> Right { get; } = right ?? throw new ArgumentNullException(nameof(right));
-
     public bool IsSatisfiedBy(T candidate)
         => Left.IsSatisfiedBy(candidate) && Right.IsSatisfiedBy(candidate);
 }
 
-file sealed class OrSpecification<T>(ISpecification<T> left, ISpecification<T> right) : IOrSpecification<T>
+file sealed record OrSpecification<T>(ISpecification<T> Left, ISpecification<T> Right) : ISpecification<T>
 {
-    public ISpecification<T> Left { get; } = left ?? throw new ArgumentNullException(nameof(left));
-
-    public ISpecification<T> Right { get; } = right ?? throw new ArgumentNullException(nameof(right));
-
     public bool IsSatisfiedBy(T candidate)
         => Left.IsSatisfiedBy(candidate) || Right.IsSatisfiedBy(candidate);
 }
