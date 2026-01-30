@@ -14,6 +14,10 @@
     <PackageTags>Specification, Spec, DDD</PackageTags>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
+  </ItemGroup>
+
   <ItemGroup Label="GlobalUsings">
     <Using Include="System" />
     <Using Include="System.Collections.Generic" />
