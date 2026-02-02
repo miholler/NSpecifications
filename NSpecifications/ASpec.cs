@@ -4,14 +4,12 @@ using System.Diagnostics.CodeAnalysis;
 namespace NSpecifications;
 
 /// <summary>
-/// Provides a base class for implementations of the <see cref="ISpecification{T}"/>
-/// generic interface.
+/// Provides a base class for expression based implementations
+/// of the <see cref="ISpecification{T}"/> generic interface.
 /// </summary>
 /// <typeparam name="T">The type of the candidate object.</typeparam>
 public abstract class ASpec<T> : ISpecification<T>, ISpecification
 {
-    private Func<T, bool>? _compiledPredicate;
-
     /// <summary>
     /// Gets the predicate that defines the current specification.
     /// </summary>
@@ -20,7 +18,7 @@ public abstract class ASpec<T> : ISpecification<T>, ISpecification
     /// <summary>
     /// Gets the compiled predicate that defines the current specification.
     /// </summary>
-    protected Func<T, bool> CompiledPredicate => _compiledPredicate ??= Predicate.Compile();
+    protected Func<T, bool> CompiledPredicate => field ??= Predicate.Compile();
 
     /// <summary>
     /// Casts the candidate type of the current specification to a specified derived candidate type.
