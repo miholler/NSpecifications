@@ -1,7 +1,7 @@
 ﻿namespace NSpecifications;
 
 /// <summary>
-/// Provides extension methods for <see cref="ISpecification{T}"/> objects.
+/// Provides extension members for <see cref="ISpecification{T}"/> objects.
 /// </summary>
 public static class SpecificationExtensions
 {
@@ -92,6 +92,102 @@ public static class SpecificationExtensions
         ArgumentNullException.ThrowIfNull(right);
 
         return new OrSpecification<T>(left, right);
+    }
+
+    extension<T>(ISpecification<T>)
+    {
+        /// <summary>
+        /// Creates a specification that negates a specified specification.
+        /// </summary>
+        /// <param name="spec">The specification to negate.</param>
+        /// <returns>
+        /// An <see cref="ISpecification{T}"/> representing the negation of the
+        /// specified specification.
+        /// </returns>
+        public static ISpecification<T> operator !(ISpecification<T> spec)
+            => spec.Not();
+
+        /// <summary>
+        /// Creates a specification that combines two specified specifications
+        /// with a conditional AND operator.
+        /// </summary>
+        /// <param name="left">The first specification to combine.</param>
+        /// <param name="right">The second specification to combine.</param>
+        /// <returns>
+        /// An <see cref="ISpecification{T}"/> representing the combination of both
+        /// specifications with a conditional AND operator.
+        /// </returns>
+        public static ISpecification<T> operator &(ISpecification<T> left, ISpecification<T> right)
+            => left.And(right);
+
+        /// <summary>
+        /// Creates a specification that combines two specified specifications
+        /// with a conditional OR operator.
+        /// </summary>
+        /// <param name="left">The first specification to combine.</param>
+        /// <param name="right">The second specification to combine.</param>
+        /// <returns>
+        /// An <see cref="ISpecification{T}"/> representing the combination of both
+        /// specifications with a conditional OR operator.
+        /// </returns>
+        public static ISpecification<T> operator |(ISpecification<T> left, ISpecification<T> right)
+            => left.Or(right);
+
+        /// <summary>
+        /// Compares a specified specification to a specified boolean value
+        /// and negates it if the boolean value is false.
+        /// </summary>
+        /// <param name="spec">The specification to compare.</param>
+        /// <param name="value">The boolean value to compare.</param>
+        /// <returns>
+        /// An <see cref="ISpecification{T}"/> representing the negation of the
+        /// specified specification if the specified boolean value was false;
+        /// otherwise, the original specification.
+        /// </returns>
+        public static ISpecification<T> operator ==(ISpecification<T> spec, bool value)
+            => value ? spec : !spec;
+
+        /// <summary>
+        /// Compares a specified specification to a specified boolean value
+        /// and negates it if the boolean value is false.
+        /// </summary>
+        /// <param name="value">The boolean value to compare.</param>
+        /// <param name="spec">The specification to compare.</param>
+        /// <returns>
+        /// An <see cref="ISpecification{T}"/> representing the negation of the
+        /// specified specification if the specified boolean value was false;
+        /// otherwise, the original specification.
+        /// </returns>
+        public static ISpecification<T> operator ==(bool value, ISpecification<T> spec)
+            => value ? spec : !spec;
+
+        /// <summary>
+        /// Compares a specified specification to a specified boolean value
+        /// and negates it if the boolean value is true.
+        /// </summary>
+        /// <param name="spec">The specification to compare.</param>
+        /// <param name="value">The boolean value to compare.</param>
+        /// <returns>
+        /// An <see cref="ISpecification{T}"/> representing the negation of the
+        /// specified specification if the specified boolean value was true;
+        /// otherwise, the original specification.
+        /// </returns>
+        public static ISpecification<T> operator !=(ISpecification<T> spec, bool value)
+            => value ? !spec : spec;
+
+        /// <summary>
+        /// Compares a specified specification to a specified boolean value
+        /// and negates it if the boolean value is true.
+        /// </summary>
+        /// <param name="value">The boolean value to compare.</param>
+        /// <param name="spec">The specification to compare.</param>
+        /// <returns>
+        /// An <see cref="ISpecification{T}"/> representing the negation of the
+        /// specified specification if the specified boolean value was true;
+        /// otherwise, the original specification.
+        /// </returns>
+        public static ISpecification<T> operator !=(bool value, ISpecification<T> spec)
+            => value ? !spec : spec;
     }
 }
 
