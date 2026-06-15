@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <Authors>João Oliveira, Michael Holler</Authors>
     <Copyright>Copyright © 2014</Copyright>
@@ -10,19 +9,18 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/miholler/NSpecifications</PackageProjectUrl>
-    <Description>NSpecifications is the most complete library for the Specification pattern and it's grounded on the Domain-Driven Design principles. Provides interface, abstract and a generic specification, composable, supports operators. This is probably the most fluent and least verbose library. Specifications can be composed with real operators (&amp;, |, !, ==, !=). They are interchangeable with Expression&lt;Func&lt;T, bool&gt;&gt; and Func&lt;T, bool&gt; and can be combined directly with boolean expressions. Check the tutorial in the GitHub.</Description>
-    <PackageTags>Specification, Spec, DDD</PackageTags>
+    <RepositoryUrl>https://github.com/miholler/NSpecifications</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>A .NET library implementing the Specification pattern — small, composable, named rule objects that encapsulate query logic. Specifications (specs) work identically against in-memory collections (IEnumerable&lt;T&gt;) and (database) queries (IQueryable&lt;T&gt;), compose with &amp;, |, and !, and are implicitly convertible to Expression&lt;Func&lt;T, bool&gt;&gt; and Func&lt;T, bool&gt;.</Description>
+    <PackageTags>Specification, Spec, DDD, Domain-Driven-Design, Pattern, Query, Filter, LINQ, Expression, Repository</PackageTags>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
   </ItemGroup>
-
   <ItemGroup Label="GlobalUsings">
     <Using Include="System" />
     <Using Include="System.Collections.Generic" />
     <Using Include="System.Linq" />
     <Using Include="System.Linq.Expressions" />
   </ItemGroup>
-
 </Project>
