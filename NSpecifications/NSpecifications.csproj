@@ -15,7 +15,7 @@
     <PackageTags>Specification, Spec, DDD, Domain-Driven-Design, Pattern, Query, Filter, LINQ, Expression, Repository</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
+    <PackageReference Include="PolySharp" Version="1.16.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Label="GlobalUsings">
     <Using Include="System" />
