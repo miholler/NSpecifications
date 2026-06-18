@@ -7,11 +7,11 @@
 public interface ISpecification
 {
     /// <summary>
-    /// Determines whether the specification is satisfied by a specified value.
+    /// Determines whether a specified candidate object satisfies the specification.
     /// </summary>
-    /// <param name="candidate">The value to check.</param>
+    /// <param name="candidate">The candidate object to evaluate.</param>
     /// <returns>
-    /// <see langword="true"/> if the specification is satisfied by the specified value;
+    /// <see langword="true"/> if the candidate object satisfies the specification;
     /// otherwise, <see langword="false"/>.
     /// </returns>
     bool IsSatisfiedBy(object? candidate);
@@ -21,15 +21,15 @@ public interface ISpecification
 /// Defines methods to determine whether an
 /// object meets a defined set of criteria.
 /// </summary>
-/// <typeparam name="T">The type of the candidate object.</typeparam>
+/// <typeparam name="T">The type of the candidate object to which the specification applies.</typeparam>
 public interface ISpecification<T>
 {
     /// <summary>
-    /// Determines whether the specification is satisfied by a specified value.
+    /// Determines whether a specified candidate object satisfies the specification.
     /// </summary>
-    /// <param name="candidate">The value to check.</param>
+    /// <param name="candidate">The candidate object to evaluate.</param>
     /// <returns>
-    /// <see langword="true"/> if the specification is satisfied by the specified value;
+    /// <see langword="true"/> if the candidate object satisfies the specification;
     /// otherwise, <see langword="false"/>.
     /// </returns>
     bool IsSatisfiedBy(T candidate);
