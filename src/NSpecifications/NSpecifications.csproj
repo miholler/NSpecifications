@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/miholler/NSpecifications</PackageProjectUrl>
     <RepositoryUrl>https://github.com/miholler/NSpecifications</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Description>A .NET library implementing the Specification pattern — small, composable, named rule objects that encapsulate query logic. Specifications (specs) work identically against in-memory collections (IEnumerable&lt;T&gt;) and (database) queries (IQueryable&lt;T&gt;), compose with &amp;, |, and !, and are implicitly convertible to Expression&lt;Func&lt;T, bool&gt;&gt; and Func&lt;T, bool&gt;.</Description>
+    <Description>A .NET library implementing the Specification pattern — small, composable, named rule objects that encapsulate query logic. Specifications (specs) work identically against in-memory collections (IEnumerable&lt;T&gt;) and (database) queries (IQueryable&lt;T&gt;), compose with &amp;, |, and ! operators, and are well suited to be used with LINQ.</Description>
     <PackageTags>Specification, Spec, DDD, Domain-Driven-Design, Pattern, Query, Filter, LINQ, Expression, Repository</PackageTags>
   </PropertyGroup>
   <ItemGroup>

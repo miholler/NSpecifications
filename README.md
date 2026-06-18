@@ -1,6 +1,6 @@
 # NSpecifications
 
-A .NET library implementing the [Specification pattern](http://martinfowler.com/apsupp/spec.pdf) — small, composable, named rule objects that encapsulate query logic. Specifications (specs) work identically against **in-memory collections** (`IEnumerable<T>`) and **(database) queries** (`IQueryable<T>`), compose with `&`, `|`, and `!`, and are implicitly convertible to `Expression<Func<T, bool>>` and `Func<T, bool>`.
+A .NET library implementing the [Specification pattern](http://martinfowler.com/apsupp/spec.pdf) — small, composable, named rule objects that encapsulate query logic. Specifications (specs) work identically against **in-memory collections** (`IEnumerable<T>`) and **(database) queries** (`IQueryable<T>`), compose with `&`, `|`, and `!` operators, and are well suited to be used with LINQ.
 
 ## Install
 
