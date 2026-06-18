@@ -32,7 +32,7 @@ dbContext.Products.Where(highRated).ToList();      // database — same code
 Specs can be defined inline or split into smaller named parts and combined with `&`, `|`, and `!`:
 
 ```csharp
-var electronics = new Spec<Product>(p => p.Category == "Electronics");
+var electronics = new Spec<Product>(p => p.Category == ProductCategory.Electronics);
 var affordable  = new Spec<Product>(p => p.Price < 500m);
 
 var affordableElectronics = electronics & affordable;   // AND
@@ -87,7 +87,7 @@ new[] { product1, product2, product3 }.Are(inStock);  // all must satisfy
 Operators (`!`, `&`, `|`, `==`, `!=`) also work on any `ISpecification<T>` implementation via C# extension members.
 
 ```csharp
-ISpecification<Product> electronics = new Spec<Product>(p => p.Category == "Electronics");
+ISpecification<Product> electronics = new Spec<Product>(p => p.Category == ProductCategory.Electronics);
 ISpecification<Product> highRated   = new Spec<Product>(p => p.Rating > 4.0);
 
 var combined = electronics & highRated;
@@ -103,23 +103,23 @@ Specs are most useful when stored close to the entity they describe — as stati
 public class Product
 {
     public string Name { get; }
-    public string Category { get; }
+    public ProductCategory Category { get; }
     public bool IsAvailable { get; }
 
     public static readonly Spec<Product> Available = new(p => p.IsAvailable);
 
-    public static Spec<Product> InCategory(string category) =>
+    public static Spec<Product> InCategory(ProductCategory category) =>
         new(p => p.Category == category);
 }
 ```
 
 ```csharp
-public IEnumerable<Product> FindProducts(string category = null, bool? isAvailable = null)
+public IEnumerable<Product> FindProducts(ProductCategory? category = null, bool? isAvailable = null)
 {
     var spec = Spec.Any<Product>();
 
-    if (!string.IsNullOrEmpty(category))
-        spec = spec & Product.InCategory(category);
+    if (category.HasValue)
+        spec = spec & Product.InCategory(category.Value);
 
     if (isAvailable.HasValue)
         spec = spec & (Product.Available == isAvailable.Value);
@@ -167,7 +167,7 @@ Both types support operators, but the return type is determined by the **declare
 
 ```csharp
 Spec<Product> available   = new(p => p.IsAvailable);
-Spec<Product> electronics = new(p => p.Category == "Electronics");
+Spec<Product> electronics = new(p => p.Category == ProductCategory.Electronics);
 
 var availableElectronics = available & electronics;             // Spec<T>            ✅
 dbContext.Products.Where(availableElectronics).ToList();
