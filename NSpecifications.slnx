@@ -1,4 +1,4 @@
 <Solution>
   <Project Path="src/NSpecifications/NSpecifications.csproj" />
-  <Project Path="tests/NSpecifications.Tests/NSpecifications.Tests.csproj" />
+  <Project Path="test/NSpecifications.Tests/NSpecifications.Tests.csproj" />
 </Solution>
